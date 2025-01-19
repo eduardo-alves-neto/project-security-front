@@ -1,16 +1,23 @@
-import { Box } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 import { Outlet } from "react-router";
-import { MenuDrawer } from "./menu-drawer";
+import { DrawerHeader, MenuDrawer } from "./menu-drawer";
+import NavBar from "./navBar";
 
 export const MainLayout = () => {
   return (
     <Box style={{ display: "flex", height: "100dvh" }}>
+      <CssBaseline />
+      {/* NavBar */}
+      <NavBar  />
 
-     <MenuDrawer/>
+      {/* Menu */}
+      <MenuDrawer  />
 
-      <main style={{ padding: "16px", flex: 1 }}>
+      {/* Outlet */}
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <DrawerHeader />
         <Outlet />
-      </main>
+      </Box>
     </Box>
   );
 };

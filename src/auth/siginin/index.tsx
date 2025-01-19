@@ -6,14 +6,18 @@ import { SignIn } from "./services/signinServices";
 import { useForm } from "react-hook-form";
 import { ISignin } from "./services/signinServices";
 import { enqueueSnackbar } from "notistack";
-import { useSession } from "../../contexts/SessionContext";
+import { useSession } from "../../contexts/sessionContext";
 import { schema } from "./schema";
 import { joiResolver } from "@hookform/resolvers/joi";
+import { useEffect } from "react";
 
 export const SignInComponent = () => {
   const { session } = useSession();
   const navigate = useNavigate();
-  if (session) navigate("protected");
+
+  useEffect(() => {
+    if (session) navigate("/main/protected");
+  }, [session, navigate]);
 
   const form = useForm<ISignin>({
     resolver: joiResolver(schema),

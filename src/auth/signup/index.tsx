@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { ISignup, SignUp } from "./services/signupServices";
 import { useForm } from "react-hook-form";
 import { enqueueSnackbar } from "notistack";
-import { useSession } from "../../contexts/SessionContext";
+import { useSession } from "../../contexts/sessionContext";
 import { schema } from "./schema";
 import { joiResolver } from "@hookform/resolvers/joi";
 

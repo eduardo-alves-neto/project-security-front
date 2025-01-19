@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { useSession } from "../contexts/SessionContext";
+import { useSession } from "../contexts/sessionContext";
 
 const ProtectedPage = () => {
   const { session } = useSession();

@@ -1,60 +1,86 @@
-import { Box, Button, Drawer, Stack } from "@mui/material";
-import { useState } from "react";
+import {
+  Divider,
+  IconButton,
+  styled,
+  useMediaQuery,
+  useTheme,
+  Drawer as DrawerMobile,
+  Box,
+} from "@mui/material";
+import MuiDrawer from "@mui/material/Drawer";
+import { useSettings } from "../../../contexts/settingsContext";
+import { MdOutlineMenuOpen } from "react-icons/md";
+import { closedMixin, openedMixin } from "./styles";
+export const DRAWER_WIDTH = 240;
 
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
+export const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
+  padding: theme.spacing(0, 1),
+  height: 45,
+}));
 
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme }) => ({
+  width: DRAWER_WIDTH,
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  variants: [
+    {
+      props: ({ open }) => open,
+      style: {
+        ...openedMixin(theme),
+        "& .MuiDrawer-paper": openedMixin(theme),
+      },
+    },
+    {
+      props: ({ open }) => !open,
+      style: {
+        ...closedMixin(theme),
+        "& .MuiDrawer-paper": closedMixin(theme),
+      },
+    },
+  ],
+}));
 
 export const MenuDrawer = () => {
-  const [open, setOpen] = useState(false);
+  const { openDrawer, setOpenDrawer } = useSettings();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen);
-  
+  const handleDrawerClose = () => {
+    setOpenDrawer(false);
   };
 
-  const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                teste
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                teste
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-
   return (
-    <Stack>
-      <Button onClick={toggleDrawer(true)}>Open drawer</Button>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
-        {DrawerList}
-      </Drawer>
-    </Stack>
+    <>
+      {isMobile ? (
+        <DrawerMobile
+          open={openDrawer}
+          anchor="left"
+          variant="temporary"
+          onClose={handleDrawerClose}
+        >
+          <Box
+            sx={{ width: 250, backgroundColor: "#FFFFFF", height: "100dvh" }}
+          >
+            Content
+          </Box>
+        </DrawerMobile>
+      ) : (
+        <Drawer variant={"permanent"} open={openDrawer}>
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {<MdOutlineMenuOpen />}
+            </IconButton>
+          </DrawerHeader>
+
+          <Divider />
+        </Drawer>
+      )}
+    </>
   );
 };
-
-

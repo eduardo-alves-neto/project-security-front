@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { supabase } from "../supabase";
-import { useSession } from "../contexts/SessionContext";
+import { useSession } from "../contexts/sessionContext";
 
 const HomePage = () => {
   const { session } = useSession();

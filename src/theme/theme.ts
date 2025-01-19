@@ -9,14 +9,19 @@ export const palette: PaletteOptions = {
   primary: {
     main: "#1C4532",
   },
+  secondary: {
+    main: "#C76345",
+  },
   text: {
     primary: "#171923",
     secondary: "#718096",
   },
   background: {
-    default: "#F0F0EC",
+    default: "#ffffff",
     paper: '"#f5f5f5"',
+    
   },
+  
 };
 
 export const components: Components<Omit<Theme, "components" | "palette">> = {

@@ -10,31 +10,30 @@ import Home from "../pages/home/home.tsx";
 import { MainLayout } from "../core/main-layout/index.tsx";
 
 const router = createBrowserRouter([
-  // I recommend you reflect the routes here in the pages folder
   {
     path: "/",
     element: <Providers />,
     children: [
-      // Public routes
+      // Rotas públicas
       {
         path: "/",
         element: <HomePage />,
       },
       {
-        path: "/auth/sign-in",
+        path: "auth/sign-in",
         element: <SignInComponent />,
       },
       {
-        path: "/auth/sign-up",
+        path: "auth/sign-up",
         element: <SignUpComponent />,
       },
-      // Auth Protected routes
+      // Rotas protegidas por autenticação
       {
-        path: "/",
+        path: "/main",
         element: <AuthProtectedRoute />,
         children: [
           {
-            path: "/main",
+            path: "",
             element: <MainLayout />,
             children: [
               {
