@@ -6,6 +6,8 @@ import AuthProtectedRoute from "./AuthProtectedRoute.tsx";
 import Providers from "../providers.tsx";
 import { SignInComponent } from "../auth/siginin/index.tsx";
 import { SignUpComponent } from "../auth/signup/index.tsx";
+import Home from "../pages/home/home.tsx";
+import { MainLayout } from "../core/main-layout/index.tsx";
 
 const router = createBrowserRouter([
   // I recommend you reflect the routes here in the pages folder
@@ -32,8 +34,18 @@ const router = createBrowserRouter([
         element: <AuthProtectedRoute />,
         children: [
           {
-            path: "/protected",
-            element: <ProtectedPage />,
+            path: "/main",
+            element: <MainLayout />,
+            children: [
+              {
+                path: "protected",
+                element: <ProtectedPage />,
+              },
+              {
+                path: "home",
+                element: <Home />,
+              },
+            ],
           },
         ],
       },

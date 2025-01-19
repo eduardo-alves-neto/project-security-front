@@ -1,5 +1,5 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import { LayoutDefault } from "../layoutDefault";
+import { LayoutDefault } from "../layout-default";
 import { Link, useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { ISignup, SignUp } from "./services/signupServices";
@@ -12,7 +12,7 @@ import { joiResolver } from "@hookform/resolvers/joi";
 export const SignUpComponent = () => {
   const { session } = useSession();
   const navigate = useNavigate();
-  if (session) navigate("/protected");
+  if (session) navigate("protected");
 
   const form = useForm<ISignup>({
     resolver: joiResolver(schema),
