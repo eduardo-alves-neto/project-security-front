@@ -15,6 +15,7 @@ export const palette: PaletteOptions = {
   },
   background: {
     default: "#F0F0EC",
+    paper: '"#f5f5f5"',
   },
 };
 
