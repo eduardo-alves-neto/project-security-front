@@ -16,7 +16,7 @@ export const SignInComponent = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (session) navigate("/main/protected");
+    if (session) navigate("/main/home");
   }, [session, navigate]);
 
   const form = useForm<ISignin>({
@@ -95,7 +95,7 @@ export const SignInComponent = () => {
 
           <Box>
             <Button
-              sx={{ borderRadius: 5, p: 2 }}
+              sx={{ borderRadius: 3, p: 2 }}
               size="medium"
               fullWidth
               variant="contained"

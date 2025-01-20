@@ -1,3 +1,4 @@
+import { PaletteColor } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 
 interface ILayoutDefault {
@@ -16,9 +17,13 @@ export const LayoutDefault = ({ children }: ILayoutDefault) => {
         {children}
       </Grid>
 
-      <Grid size={{ xs: 0, sm: 0, md: 6 }} sx={{backgroundColor:'#1C4532'}}>
-
-      </Grid>
+      <Grid
+        size={{ xs: 0, sm: 0, md: 6 }}
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.primary["200" as keyof PaletteColor],
+        }}
+      ></Grid>
     </Grid>
   );
 };

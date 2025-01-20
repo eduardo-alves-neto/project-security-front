@@ -12,7 +12,7 @@ import { joiResolver } from "@hookform/resolvers/joi";
 export const SignUpComponent = () => {
   const { session } = useSession();
   const navigate = useNavigate();
-  if (session) navigate("protected");
+  if (session) navigate("main/home");
 
   const form = useForm<ISignup>({
     resolver: joiResolver(schema),
@@ -94,7 +94,7 @@ export const SignUpComponent = () => {
 
           <Box>
             <Button
-              sx={{ borderRadius: 5, p: 2 }}
+              sx={{ borderRadius: 3, p: 2 }}
               size="medium"
               fullWidth
               variant="contained"

@@ -11,6 +11,8 @@ import { useSettings } from "../../../contexts/settingsContext";
 import { DRAWER_WIDTH } from "../menu-drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { IoMenuOutline } from "react-icons/io5";
+import { MdLogout } from "react-icons/md";
+import { supabase } from "../../../supabase";
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -89,6 +91,12 @@ export default function NavBar() {
           <Typography variant="h6" flex={1} component="div">
             Mini variant drawer
           </Typography>
+        </Stack>
+
+        <Stack>
+          <IconButton onClick={() => supabase.auth.signOut()}>
+            <MdLogout />
+          </IconButton>
         </Stack>
       </Stack>
     </AppBar>

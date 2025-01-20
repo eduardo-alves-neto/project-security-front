@@ -1,6 +1,4 @@
 import { createBrowserRouter } from "react-router";
-import HomePage from "../pages/HomePage.tsx";
-import ProtectedPage from "../pages/ProtectedPage.tsx";
 import NotFoundPage from "../pages/404Page.tsx";
 import AuthProtectedRoute from "./AuthProtectedRoute.tsx";
 import Providers from "../providers.tsx";
@@ -17,7 +15,7 @@ const router = createBrowserRouter([
       // Rotas públicas
       {
         path: "/",
-        element: <HomePage />,
+        element: <></>, // usar para mostrar uma landing page do sistema
       },
       {
         path: "auth/sign-in",
@@ -36,10 +34,6 @@ const router = createBrowserRouter([
             path: "",
             element: <MainLayout />,
             children: [
-              {
-                path: "protected",
-                element: <ProtectedPage />,
-              },
               {
                 path: "home",
                 element: <Home />,

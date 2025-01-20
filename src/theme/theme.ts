@@ -5,12 +5,21 @@ import {
   Theme,
 } from "@mui/material/styles";
 
+// .color1 { #001848 };
+// .color2 { #301860 };
+// .color3 { #483078 };
+// .color4 { #604878 };
+// .color5 { #906090 };
+
 export const palette: PaletteOptions = {
   primary: {
-    main: "#1C4532",
+    main: "#001848",
+    "100": "#483078",
+    "200": "#301860",
   },
   secondary: {
-    main: "#C76345",
+    main: "#906090",
+    "100": "#604878",
   },
   text: {
     primary: "#171923",
@@ -19,9 +28,7 @@ export const palette: PaletteOptions = {
   background: {
     default: "#ffffff",
     paper: '"#f5f5f5"',
-    
   },
-  
 };
 
 export const components: Components<Omit<Theme, "components" | "palette">> = {
