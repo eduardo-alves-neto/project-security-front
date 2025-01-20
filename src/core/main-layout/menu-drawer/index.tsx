@@ -11,6 +11,7 @@ import MuiDrawer from "@mui/material/Drawer";
 import { useSettings } from "../../../contexts/settingsContext";
 import { MdOutlineMenuOpen } from "react-icons/md";
 import { closedMixin, openedMixin } from "./styles";
+import { ListOptions } from "./list-options-menu-drawer/listOptions";
 export const DRAWER_WIDTH = 240;
 
 export const DrawerHeader = styled("div")(({ theme }) => ({
@@ -65,13 +66,21 @@ export const MenuDrawer = () => {
           onClose={handleDrawerClose}
         >
           <Box
-            sx={{ width: 250, backgroundColor: "#FFFFFF", height: "100dvh" }}
+            sx={{
+              width: 250,
+              backgroundColor: (theme) => theme.palette.background.paper,
+              height: "100dvh",
+            }}
           >
             Content
           </Box>
         </DrawerMobile>
       ) : (
-        <Drawer variant={"permanent"} open={openDrawer}>
+        <Drawer
+          variant={"permanent"}
+          open={openDrawer}
+          sx={{ backgroundColor: (theme) => theme.palette.background.paper }}
+        >
           <DrawerHeader>
             <IconButton onClick={handleDrawerClose}>
               {<MdOutlineMenuOpen />}
@@ -79,6 +88,7 @@ export const MenuDrawer = () => {
           </DrawerHeader>
 
           <Divider />
+          <ListOptions />
         </Drawer>
       )}
     </>

@@ -8,13 +8,13 @@ export const MainLayout = () => {
     <Box style={{ display: "flex", height: "100dvh" }}>
       <CssBaseline />
       {/* NavBar */}
-      <NavBar  />
+      <NavBar />
 
       {/* Menu */}
-      <MenuDrawer  />
+      <MenuDrawer />
 
       {/* Outlet */}
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, overflow: "hidden" }}>
         <DrawerHeader />
         <Outlet />
       </Box>

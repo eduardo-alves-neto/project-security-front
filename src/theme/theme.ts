@@ -14,6 +14,7 @@ import {
 export const palette: PaletteOptions = {
   primary: {
     main: "#001848",
+    "50": "#F8FAFC",
     "100": "#483078",
     "200": "#301860",
   },
@@ -26,8 +27,8 @@ export const palette: PaletteOptions = {
     secondary: "#718096",
   },
   background: {
-    default: "#ffffff",
-    paper: '"#f5f5f5"',
+    default: "#EFEFEF",
+    paper: "#f5f5f5",
   },
 };
 

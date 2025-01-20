@@ -1,11 +1,9 @@
 import {
   Box,
-  IconButton,
-  Stack,
+  IconButton, Stack,
   styled,
-  Typography,
   useMediaQuery,
-  useTheme,
+  useTheme
 } from "@mui/material";
 import { useSettings } from "../../../contexts/settingsContext";
 import { DRAWER_WIDTH } from "../menu-drawer";
@@ -55,19 +53,14 @@ export default function NavBar() {
     <AppBar
       position="fixed"
       open={open}
-      color="default"
       sx={{
         height: 45,
         boxShadow: "none",
+        backgroundColor: '#FFFF',
       }}
       isMobile={isMobile}
     >
-      <Stack
-        height={45}
-        borderBottom={1}
-        borderColor={theme.palette.divider}
-        flexDirection="row"
-      >
+      <Stack height={45} flexDirection="row">
         <Box
           sx={{
             width: `calc(${theme.spacing(7)} + 8px)`,
@@ -78,7 +71,7 @@ export default function NavBar() {
           position={open ? "absolute" : "relative"}
         >
           <IconButton
-            color="inherit"
+            color="primary"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             sx={[open && { display: "none", position: "absolute" }]}
@@ -88,14 +81,14 @@ export default function NavBar() {
         </Box>
 
         <Stack flex={1} ml={1}>
-          <Typography variant="h6" flex={1} component="div">
+          {/* <Typography variant="h6" flex={1}>
             Mini variant drawer
-          </Typography>
+          </Typography> */}
         </Stack>
 
         <Stack>
           <IconButton onClick={() => supabase.auth.signOut()}>
-            <MdLogout />
+            <MdLogout color="" />
           </IconButton>
         </Stack>
       </Stack>

@@ -6,6 +6,7 @@ import { SignInComponent } from "../auth/siginin/index.tsx";
 import { SignUpComponent } from "../auth/signup/index.tsx";
 import Home from "../pages/home/home.tsx";
 import { MainLayout } from "../core/main-layout/index.tsx";
+import { routeCustomers } from "../pages/customer/routers.tsx";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
                 path: "home",
                 element: <Home />,
               },
+              ...routeCustomers,
             ],
           },
         ],
