@@ -7,6 +7,7 @@ import { SignUpComponent } from "../auth/signup/index.tsx";
 import Home from "../pages/home/home.tsx";
 import { MainLayout } from "../core/main-layout/index.tsx";
 import { routeCustomers } from "../pages/customer/routers.tsx";
+import { Link } from "react-router";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,12 @@ const router = createBrowserRouter([
       // Rotas públicas
       {
         path: "/",
-        element: <></>, // usar para mostrar uma landing page do sistema
+        element: (
+          <>
+            <Link  to="auth/sign-in" />
+            <Link to="auth/sign-in" />
+          </>
+        ), // usar para mostrar uma landing page do sistema
       },
       {
         path: "auth/sign-in",

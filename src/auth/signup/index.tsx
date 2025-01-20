@@ -8,11 +8,14 @@ import { enqueueSnackbar } from "notistack";
 import { useSession } from "../../contexts/sessionContext";
 import { schema } from "./schema";
 import { joiResolver } from "@hookform/resolvers/joi";
+import { useEffect } from "react";
 
 export const SignUpComponent = () => {
   const { session } = useSession();
   const navigate = useNavigate();
-  if (session) navigate("main/home");
+  useEffect(() => {
+    if (session) navigate("/main/home");
+  }, [session, navigate]);
 
   const form = useForm<ISignup>({
     resolver: joiResolver(schema),

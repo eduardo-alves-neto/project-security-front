@@ -1,10 +1,10 @@
 import { Card, Stack, Typography } from "@mui/material";
 import { IListTable } from "./hooks/useListTable";
-import ListTable from "./ListTable";
 import {
   IListTablePagination,
   ListTablePagination,
 } from "./listTablepagination";
+import ListTable from "./listTable";
 
 interface LayoutListTableProps<T> extends IListTable<T> {
   pagination?: IListTablePagination;
