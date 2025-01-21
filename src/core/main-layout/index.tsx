@@ -14,7 +14,7 @@ export const MainLayout = () => {
       <MenuDrawer />
 
       {/* Outlet */}
-      <Box component="main" sx={{ flexGrow: 1, p: 3, overflow: "hidden" }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 1, overflow: "hidden" }}>
         <DrawerHeader />
         <Outlet />
       </Box>

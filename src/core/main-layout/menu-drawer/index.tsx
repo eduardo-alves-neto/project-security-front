@@ -1,5 +1,4 @@
 import {
-  Divider,
   IconButton,
   styled,
   useMediaQuery,
@@ -12,6 +11,7 @@ import { useSettings } from "../../../contexts/settingsContext";
 import { MdOutlineMenuOpen } from "react-icons/md";
 import { closedMixin, openedMixin } from "./styles";
 import { ListOptions } from "./list-options-menu-drawer/listOptions";
+import { useEffect } from "react";
 export const DRAWER_WIDTH = 240;
 
 export const DrawerHeader = styled("div")(({ theme }) => ({
@@ -52,6 +52,10 @@ export const MenuDrawer = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+  useEffect(() => {
+    if (isMobile) setOpenDrawer(false);
+  }, [isMobile]);
+
   const handleDrawerClose = () => {
     setOpenDrawer(false);
   };
@@ -79,15 +83,17 @@ export const MenuDrawer = () => {
         <Drawer
           variant={"permanent"}
           open={openDrawer}
-          sx={{ backgroundColor: (theme) => theme.palette.background.paper }}
+          sx={{
+            backgroundColor: (theme) => theme.palette.background.paper,
+            borderRight: "none",
+          }}
         >
-          <DrawerHeader>
+          <DrawerHeader sx={{ borderBottom: 1 }}>
             <IconButton onClick={handleDrawerClose}>
               {<MdOutlineMenuOpen />}
             </IconButton>
           </DrawerHeader>
 
-          <Divider />
           <ListOptions />
         </Drawer>
       )}

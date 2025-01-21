@@ -21,7 +21,7 @@ export const ListOptions = () => {
   return listOptions.map((item, index) => {
     return (
       <ListItem key={index} disablePadding>
-        <ListItemButton onClick={() => navigate(item.path)}>
+        <ListItemButton onClick={() => navigate(item.path)} sx={{ pl: 3 }}>
           <ListItemIcon>{<item.Icon />}</ListItemIcon>
           <ListItemText primary={item.label} />
         </ListItemButton>

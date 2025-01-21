@@ -8,6 +8,8 @@ import ListTable from "./listTable";
 
 interface LayoutListTableProps<T> extends IListTable<T> {
   pagination?: IListTablePagination;
+  isLoading?: boolean;
+  title?: string;
 }
 
 export const LayoutListTable = <T,>(props: LayoutListTableProps<T>) => {
@@ -15,19 +17,21 @@ export const LayoutListTable = <T,>(props: LayoutListTableProps<T>) => {
     <>
       <Stack
         p={1.5}
-        variant="outlined"
         component={Card}
-        sx={{ backgroundColor: "#FFFF", boxShadow: "none" }}
+        sx={{ backgroundColor: "#f5f3f3", boxShadow: "none" }}
+        border={1}
+        borderColor={"divider"}
       >
         <Stack mb={1}>
-          <Typography variant="h6" fontWeight={700}>
-            Total: {props?.rows?.length ?? 0}
+          <Typography variant="subtitle1" fontWeight={600}>
+            {`Total de ${props.title ?? "registros"} : ${
+              props?.rows?.length ?? 0
+            }`}
           </Typography>
         </Stack>
 
-        {/* TABELA */}
         {<ListTable {...props} />}
-        {/* RODAPE DE PAGINAÇÃO */}
+
         {props.pagination && <ListTablePagination {...props.pagination} />}
       </Stack>
     </>

@@ -1,11 +1,19 @@
-import { Box, Button, Stack, TablePagination, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  PaletteColorOptions,
+  Stack,
+  TablePagination,
+  Typography,
+} from "@mui/material";
+import { ChangeEvent } from "react";
 
 export interface IListTablePagination {
   rowsLength: number;
   page: number;
   rowsPerPage: number;
-  onPageChange: VoidFunction;
-  onRowsPerPageChange: VoidFunction;
+  onPageChange: (event: unknown, newPage: number) => void;
+  onRowsPerPageChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const ListTablePagination = ({
@@ -18,14 +26,13 @@ export const ListTablePagination = ({
   return (
     <TablePagination
       page={page}
-      disabled
       ActionsComponent={(actionsProp) => (
         <Box sx={{ mx: 2 }} gap={1}>
           <Stack direction="row" alignItems={"center"}>
             <Button
               variant="outlined"
               size="small"
-              sx={{ maxHeight: 40, minWidth: 120 }}
+              sx={{ maxHeight: 40, minWidth: 120, boxShadow: "none" }}
               onClick={(e) => actionsProp.onPageChange(e, actionsProp.page - 1)}
               disabled={actionsProp.page === 0}
             >
@@ -47,7 +54,13 @@ export const ListTablePagination = ({
             <Button
               size="small"
               variant="contained"
-              sx={{ maxHeight: 40, minWidth: 120 }}
+              sx={{
+                maxHeight: 40,
+                minWidth: 120,
+                boxShadow: "none",
+                backgroundColor: (theme) =>
+                  theme.palette.primary["100" as keyof PaletteColorOptions],
+              }}
               onClick={(e) => actionsProp.onPageChange(e, actionsProp.page + 1)}
               disabled={
                 actionsProp.page >=

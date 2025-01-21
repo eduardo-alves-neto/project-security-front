@@ -7,7 +7,7 @@ import { SignUpComponent } from "../auth/signup/index.tsx";
 import Home from "../pages/home/home.tsx";
 import { MainLayout } from "../core/main-layout/index.tsx";
 import { routeCustomers } from "../pages/customer/routers.tsx";
-import { Link } from "react-router";
+import { Button, Stack } from "@mui/material";
 
 const router = createBrowserRouter([
   {
@@ -18,10 +18,25 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: (
-          <>
-            <Link  to="auth/sign-in" />
-            <Link to="auth/sign-in" />
-          </>
+          <Stack
+            height="100dvh"
+            justifyContent="center"
+            alignItems="center"
+            gap={2}
+          >
+            <Button
+              variant="contained"
+              onClick={() => window.open("/auth/sign-in")}
+            >
+              sign-in
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => window.open("/auth/sign-up")}
+            >
+              sign-up
+            </Button>
+          </Stack>
         ), // usar para mostrar uma landing page do sistema
       },
       {

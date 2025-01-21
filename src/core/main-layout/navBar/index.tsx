@@ -1,9 +1,10 @@
 import {
   Box,
-  IconButton, Stack,
+  IconButton,
+  Stack,
   styled,
   useMediaQuery,
-  useTheme
+  useTheme,
 } from "@mui/material";
 import { useSettings } from "../../../contexts/settingsContext";
 import { DRAWER_WIDTH } from "../menu-drawer";
@@ -56,11 +57,16 @@ export default function NavBar() {
       sx={{
         height: 45,
         boxShadow: "none",
-        backgroundColor: '#FFFF',
+        backgroundColor: (theme) => theme.palette.background.paper,
       }}
       isMobile={isMobile}
     >
-      <Stack height={45} flexDirection="row">
+      <Stack
+        height={45}
+        flexDirection="row"
+        borderBottom={1}
+        borderColor="divider"
+      >
         <Box
           sx={{
             width: `calc(${theme.spacing(7)} + 8px)`,
