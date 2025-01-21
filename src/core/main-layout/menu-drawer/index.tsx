@@ -1,10 +1,9 @@
 import {
   IconButton,
   styled,
-  useMediaQuery,
-  useTheme,
   Drawer as DrawerMobile,
   Box,
+  useTheme,
 } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import { useSettings } from "../../../contexts/settingsContext";
@@ -48,9 +47,8 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export const MenuDrawer = () => {
-  const { openDrawer, setOpenDrawer } = useSettings();
+  const { openDrawer, setOpenDrawer, isMobile } = useSettings();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
     if (isMobile) setOpenDrawer(false);
@@ -85,12 +83,21 @@ export const MenuDrawer = () => {
           open={openDrawer}
           sx={{
             backgroundColor: (theme) => theme.palette.background.paper,
-            borderRight: "none",
           }}
         >
-          <DrawerHeader sx={{ borderBottom: 1 }}>
+          <DrawerHeader
+            sx={{
+              borderBottom: 1,
+              borderColor: "divider",
+            }}
+          >
             <IconButton onClick={handleDrawerClose}>
-              {<MdOutlineMenuOpen />}
+              {
+                <MdOutlineMenuOpen
+                  color={theme.palette.primary.main}
+                  size={30}
+                />
+              }
             </IconButton>
           </DrawerHeader>
 

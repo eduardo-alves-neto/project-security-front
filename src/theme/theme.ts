@@ -8,7 +8,7 @@ import {
 export const palette: PaletteOptions = {
   primary: {
     main: "#001848",
-    "50": "#F8FAFC",
+    "50": "#ddeded",
     "100": "#483078",
     "200": "#301860",
   },
@@ -24,7 +24,7 @@ export const palette: PaletteOptions = {
     default: "#EFEFEF",
     paper: "#f5f5f5",
   },
-  divider: "#301860",
+  divider: "#d4c8fa",
 };
 
 export const components: Components<Omit<Theme, "components" | "palette">> = {

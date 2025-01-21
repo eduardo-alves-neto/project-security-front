@@ -18,9 +18,7 @@ export const LayoutListTable = <T,>(props: LayoutListTableProps<T>) => {
       <Stack
         p={1.5}
         component={Card}
-        sx={{ backgroundColor: "#f5f3f3", boxShadow: "none" }}
-        border={1}
-        borderColor={"divider"}
+        sx={{ backgroundColor: "#ffffff", boxShadow: "none" }}
       >
         <Stack mb={1}>
           <Typography variant="subtitle1" fontWeight={600}>
@@ -30,7 +28,7 @@ export const LayoutListTable = <T,>(props: LayoutListTableProps<T>) => {
           </Typography>
         </Stack>
 
-        {<ListTable {...props} />}
+        <ListTable {...props} />
 
         {props.pagination && <ListTablePagination {...props.pagination} />}
       </Stack>

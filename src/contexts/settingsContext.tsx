@@ -1,3 +1,4 @@
+import { useMediaQuery, useTheme } from "@mui/material";
 import {
   createContext,
   Dispatch,
@@ -10,16 +11,20 @@ import {
 interface SettingsContextProps {
   openDrawer: boolean;
   setOpenDrawer: Dispatch<SetStateAction<boolean>>;
+  isMobile: boolean;
 }
 
 export const SettingsContext = createContext({} as SettingsContextProps);
 
 export const SettingsProvider = ({ children }: PropsWithChildren) => {
-  const [openDrawer, setOpenDrawer] = useState(true);
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const values = {
     openDrawer,
     setOpenDrawer,
+    isMobile,
   };
 
   return (

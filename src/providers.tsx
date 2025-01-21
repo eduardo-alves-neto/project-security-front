@@ -12,11 +12,11 @@ const Providers = () => {
     <SessionProvider>
       <QueryClientProvider client={queryClient}>
         <SnackbarProvider maxSnack={5}>
-          <SettingsProvider>
-            <ThemeProvider theme={theme}>
+          <ThemeProvider theme={theme}>
+            <SettingsProvider>
               <Outlet />
-            </ThemeProvider>
-          </SettingsProvider>
+            </SettingsProvider>
+          </ThemeProvider>
         </SnackbarProvider>
       </QueryClientProvider>
     </SessionProvider>

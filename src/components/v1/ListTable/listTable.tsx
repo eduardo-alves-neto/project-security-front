@@ -41,6 +41,7 @@ const ListTable = <T,>({ rows, columns, isLoading }: ListTableProps<T>) => {
             minHeight: 200,
             backgroundColor: "#f9f9f9",
             borderRadius: "4px",
+            borderTop: 1,
           }}
         >
           <Typography variant="h6" color="textSecondary">
@@ -51,6 +52,8 @@ const ListTable = <T,>({ rows, columns, isLoading }: ListTableProps<T>) => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead
             sx={{
+              borderTop: 1,
+              borderTopColor: "divider",
               backgroundColor: (theme) =>
                 theme.palette.primary["50" as keyof PaletteColorOptions],
             }}

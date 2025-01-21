@@ -7,7 +7,6 @@ export const openedMixin = (theme: Theme): CSSObject => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
   }),
-  borderRight: "none",
   overflowX: "hidden",
 });
 
