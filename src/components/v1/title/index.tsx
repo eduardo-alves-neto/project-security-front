@@ -16,7 +16,7 @@ import { FcHome } from "react-icons/fc";
 interface ITitle {
   title: string;
   buttonTitle?: string;
-  breadcrumbs?: { label: string; path?: string }[];
+  breadcrumbs?: { label: string; path?: string | number }[];
   onNewRegisterNavigate?: () => void;
 }
 
@@ -49,7 +49,7 @@ export const Title = ({
                 <MuiLink
                   variant="subtitle2"
                   color="inherit"
-                  to={"/main/home"}
+                  to={"/home"}
                   component={Link}
                 >
                   <FcHome fontSize={22} />
@@ -59,7 +59,7 @@ export const Title = ({
             </Box>
 
             <Box>
-              <Breadcrumbs aria-label="breadcrumb-title" separator=">">
+              <Breadcrumbs aria-label="breadcrumb-title" separator="/">
                 {breadcrumbs?.map((breadcrumb, index) => {
                   let lastIndexBreadcrumbs = breadcrumbs.length - 1;
                   let isDisable = index === lastIndexBreadcrumbs;
@@ -71,7 +71,7 @@ export const Title = ({
                       variant="subtitle2"
                       disabled={isDisable}
                       component={"button"}
-                      onClick={() => navigate(breadcrumb.path ?? "..")}
+                      onClick={() => navigate(breadcrumb.path as string)}
                       sx={{
                         fontSize: "0.9rem",
                         minHeight: 30,

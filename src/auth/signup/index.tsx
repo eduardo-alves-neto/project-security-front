@@ -14,7 +14,7 @@ export const SignUpComponent = () => {
   const { session } = useSession();
   const navigate = useNavigate();
   useEffect(() => {
-    if (session) navigate("/main/home");
+    if (session) navigate("/home");
   }, [session, navigate]);
 
   const form = useForm<ISignup>({

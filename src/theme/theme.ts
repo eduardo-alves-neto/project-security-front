@@ -8,7 +8,7 @@ import {
 export const palette: PaletteOptions = {
   primary: {
     main: "#001848",
-    "50": "#ddeded",
+    "50": "#9495b0",
     "100": "#483078",
     "200": "#301860",
   },

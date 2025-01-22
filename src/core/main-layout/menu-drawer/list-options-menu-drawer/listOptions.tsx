@@ -12,7 +12,11 @@ import { useNavigate } from "react-router";
 // }
 
 const listOptions = [
-  { label: "Clientes", path: "customers/list", Icon: IoPersonSharp },
+  {
+    label: "Clientes",
+    path: "customers",
+    Icon: IoPersonSharp,
+  },
 ];
 
 export const ListOptions = () => {

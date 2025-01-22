@@ -1,14 +1,14 @@
 import { RouteObject } from "react-router";
-import { List } from ".";
+import { List } from "./list";
 import { routes } from "./constants/routes";
-import { CustomerForm } from "./forms";
+import { CustomerFormView } from "./forms";
 
 export const routeCustomers: RouteObject[] = [
   {
-    path: "customers",
+    path: "/",
     children: [
-      { path: routes["list"], element: <List /> },
-      { path: routes["form"], element: <CustomerForm /> },
+      { path: routes.list(), element: <List /> },
+      { path: routes.create(), element: <CustomerFormView /> },
     ],
   },
 ];

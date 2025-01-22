@@ -20,7 +20,10 @@ const ListTable = <T,>({ rows, columns, isLoading }: ListTableProps<T>) => {
   const table = useListTable<T>({ rows: rows ?? [], columns: columns ?? [] });
 
   return (
-    <TableContainer component={Paper} sx={{ boxShadow: "none" }}>
+    <TableContainer
+      component={Paper}
+      sx={{ boxShadow: "none", border: 1, borderColor: "divider" }}
+    >
       {isLoading ? (
         <Box
           sx={{
@@ -42,6 +45,7 @@ const ListTable = <T,>({ rows, columns, isLoading }: ListTableProps<T>) => {
             backgroundColor: "#f9f9f9",
             borderRadius: "4px",
             borderTop: 1,
+            borderColor: "divider",
           }}
         >
           <Typography variant="h6" color="textSecondary">

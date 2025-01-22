@@ -16,7 +16,7 @@ export const SignInComponent = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (session) navigate("/main/home");
+    if (session) navigate("/home");
   }, [session, navigate]);
 
   const form = useForm<ISignin>({

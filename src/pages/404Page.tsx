@@ -31,7 +31,7 @@ const NotFoundPage: React.FC = () => {
         sx={{ boxShadow: "none" }}
         startIcon={<BiSolidHomeHeart />}
         component={Link}
-        to="/main"
+        to="/main/home"
       >
         Voltar para o início
       </Button>

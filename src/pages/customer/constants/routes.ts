@@ -1,4 +1,5 @@
 export const routes = {
-  list: "list",
-  form: "/main/customer/form",
+  list: () => "customers",
+  create: () => "/customers/create",
+  update: (uuid: string) => "/customers/update/" + uuid,
 };

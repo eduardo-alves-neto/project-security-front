@@ -21,7 +21,9 @@ export const ListView = ({
         title="Clientes"
         buttonTitle="Adicionar cliente"
         breadcrumbs={[{ label: "Clientes" }]}
-        onNewRegisterNavigate={() => navigate(routes["form"])}
+        onNewRegisterNavigate={() =>
+          navigate(routes.create(), { viewTransition: true })
+        }
       />
 
       <LayoutListTable
