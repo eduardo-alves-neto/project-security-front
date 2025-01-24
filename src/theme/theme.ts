@@ -37,7 +37,7 @@ export const components: Components<Omit<Theme, "components" | "palette">> = {
     styleOverrides: {
       root: {
         "& .MuiOutlinedInput-notchedOutline": {
-          borderRadius: "12px",
+          borderRadius: "9px",
         },
       },
     },
