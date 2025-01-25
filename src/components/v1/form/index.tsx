@@ -1,5 +1,6 @@
-import { Box, Button, Stack } from "@mui/material";
+import { Box, Button, Card, Stack } from "@mui/material";
 import { IForm } from "./types";
+import { useNavigate } from "react-router";
 
 export function Form<T>({
   children,
@@ -7,19 +8,19 @@ export function Form<T>({
   onHandleSubmit,
   onSubmit,
 }: IForm<T>) {
+  const navigate = useNavigate();
+
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onHandleSubmit(onSubmit({ values: values }));
   };
 
   return (
-    <Box
+    <Card
       sx={{
-        padding: 2,
-        border: 1,
-        borderRadius: 1,
-        borderColor: "divider",
+        padding: 1.5,
       }}
+      variant="outlined"
       component={"form"}
       onSubmit={onFormSubmit}
     >
@@ -35,11 +36,18 @@ export function Form<T>({
         <Button type="reset" variant="outlined" color="error">
           Limpar dados
         </Button>
-        <Button type="button">cancelar</Button>
-        <Button type="submit" variant="contained">
+        <Button
+          type="button"
+          color="secondary"
+          onClick={() => navigate(-1)}
+          sx={{ padding: 1 }}
+        >
+          cancelar
+        </Button>
+        <Button type="submit" variant="contained" sx={{ boxShadow: 1 }}>
           enviar
         </Button>
       </Stack>
-    </Box>
+    </Card>
   );
 }

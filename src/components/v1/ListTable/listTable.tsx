@@ -35,7 +35,7 @@ const ListTable = <T,>({ rows, columns, isLoading }: ListTableProps<T>) => {
         >
           <CircularProgress />
         </Box>
-      ) : rows.length === 0 ? (
+      ) : !rows ? (
         <Box
           sx={{
             display: "flex",
@@ -49,7 +49,7 @@ const ListTable = <T,>({ rows, columns, isLoading }: ListTableProps<T>) => {
           }}
         >
           <Typography variant="h6" color="textSecondary">
-            Nenhum dado disponível
+            Sem dados
           </Typography>
         </Box>
       ) : (

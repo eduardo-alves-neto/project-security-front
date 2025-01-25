@@ -16,6 +16,7 @@ import { FcHome } from "react-icons/fc";
 interface ITitle {
   title: string;
   buttonTitle?: string;
+  hideTitleButton?: boolean;
   breadcrumbs?: { label: string; path?: string | number }[];
   onNewRegisterNavigate?: () => void;
 }
@@ -24,6 +25,7 @@ export const Title = ({
   title,
   buttonTitle,
   breadcrumbs,
+  hideTitleButton,
   onNewRegisterNavigate,
 }: ITitle) => {
   const { isMobile } = useSettings();
@@ -33,10 +35,11 @@ export const Title = ({
     <>
       <Stack
         mb={0.5}
-        pt={0.4}
+        p={0.5}
+        sx={{ userSelect: "none" }}
         flexDirection="row"
         justifyContent="space-between"
-        alignItems="center"
+        alignItems="end"
       >
         <Box display="flex" alignItems="start" flexDirection="column">
           <Stack
@@ -59,10 +62,10 @@ export const Title = ({
             </Box>
 
             <Box>
-              <Breadcrumbs aria-label="breadcrumb-title" separator="/">
+              <Breadcrumbs aria-label="breadcrumb-title" separator="|">
                 {breadcrumbs?.map((breadcrumb, index) => {
-                  let lastIndexBreadcrumbs = breadcrumbs.length - 1;
-                  let isDisable = index === lastIndexBreadcrumbs;
+                  const lastIndexBreadcrumbs = breadcrumbs.length - 1;
+                  const isDisable = index === lastIndexBreadcrumbs;
 
                   return (
                     <MuiLink
@@ -87,29 +90,31 @@ export const Title = ({
             </Box>
           </Stack>
 
-          <Typography fontSize={29} fontWeight="bold">
+          <Typography fontSize={24} fontWeight="bold">
             {!isMobile ? title : ""}
           </Typography>
         </Box>
 
         <Box>
-          <Button
-            variant="contained"
-            sx={{
-              borderRadius: 2,
-              fontSize: "0.8rem",
-              padding: "8px 10px",
-              boxShadow: "none",
-              backgroundColor: (theme) =>
-                theme.palette.primary["200" as keyof PaletteColorOptions],
-            }}
-            onClick={onNewRegisterNavigate}
-            startIcon={<IoMdAdd />}
-          >
-            {buttonTitle && buttonTitle?.length > 18
-              ? `${buttonTitle?.slice(0, 18)}...`
-              : buttonTitle ?? "Adicionar"}
-          </Button>
+          {!hideTitleButton && (
+            <Button
+              variant="contained"
+              sx={{
+                fontSize: 13,
+                borderRadius: 2,
+                padding: "8px 10px",
+                boxShadow: "none",
+                backgroundColor: (theme) =>
+                  theme.palette.primary["200" as keyof PaletteColorOptions],
+              }}
+              onClick={onNewRegisterNavigate}
+              startIcon={<IoMdAdd />}
+            >
+              {buttonTitle && buttonTitle?.length > 18
+                ? `${buttonTitle?.slice(0, 18)}...`
+                : buttonTitle ?? "Adicionar"}
+            </Button>
+          )}
         </Box>
       </Stack>
     </>

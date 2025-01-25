@@ -28,9 +28,13 @@ export const palette: PaletteOptions = {
 };
 
 export const components: Components<Omit<Theme, "components" | "palette">> = {
-  MuiButton: {
+  MuiTextField: {
     styleOverrides: {
-      root: {},
+      root: {
+        "& .MuiOutlinedInput-notchedOutline": {
+          borderRadius: "6px",
+        },
+      },
     },
   },
   MuiOutlinedInput: {
