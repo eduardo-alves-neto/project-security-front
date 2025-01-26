@@ -10,4 +10,5 @@ export interface IForm<T> extends PropsWithChildren {
   onHandleSubmit: UseFormHandleSubmit<FieldValues>;
   onSubmit: onSubmitType<T>;
   values: T;
+  oldValues?: T;
 }

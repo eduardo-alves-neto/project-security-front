@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -6,36 +6,41 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import { flexRender } from "@tanstack/react-table";
 import { useListTable, IListTable } from "./hooks/useListTable";
-import { PaletteColorOptions, Box } from "@mui/material";
+import { PaletteColorOptions, Box, IconButton, Popover } from "@mui/material";
+import { CgMoreVerticalO } from "react-icons/cg";
+import { MenuOptionsPopover } from "./components/menu-options-popover";
 
 interface ListTableProps<T> extends IListTable<T> {
   isLoading?: boolean;
 }
 
-const ListTable = <T,>({ rows, columns, isLoading }: ListTableProps<T>) => {
+const ListTable = <T,>({ rows, columns }: ListTableProps<T>) => {
   const table = useListTable<T>({ rows: rows ?? [], columns: columns ?? [] });
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [selectedRow, setSelectedRow] = useState<T | null>(null);
+
+  const handleOpenPopover = (event: React.MouseEvent<HTMLElement>, row: T) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedRow(row);
+  };
+
+  const handleClosePopover = () => {
+    setAnchorEl(null);
+    setSelectedRow(null);
+  };
+
+  const isPopoverOpen = Boolean(anchorEl);
 
   return (
     <TableContainer
       component={Paper}
       sx={{ boxShadow: "none", border: 1, borderColor: "divider" }}
     >
-      {isLoading ? (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            minHeight: 200,
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      ) : !rows ? (
+      {!rows ? (
         <Box
           sx={{
             display: "flex",
@@ -79,16 +84,13 @@ const ListTable = <T,>({ rows, columns, isLoading }: ListTableProps<T>) => {
                         .toUpperCase()}
                     </TableCell>
                   ))}
+                  <TableCell></TableCell>
                 </React.Fragment>
               ))}
             </TableRow>
           </TableHead>
 
-          <TableBody
-            sx={{
-              backgroundColor: "#FFFFFF",
-            }}
-          >
+          <TableBody sx={{ backgroundColor: "#FFFFFF" }}>
             {table?.getRowModel()?.rows?.map((row) => (
               <TableRow key={row.id}>
                 {row?.getVisibleCells()?.map((cell) => (
@@ -99,11 +101,21 @@ const ListTable = <T,>({ rows, columns, isLoading }: ListTableProps<T>) => {
                     )}
                   </TableCell>
                 ))}
+
+                <TableCell align="right">
+                  <IconButton
+                    onClick={(event) => handleOpenPopover(event, row)}
+                  >
+                    <CgMoreVerticalO />
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       )}
+
+      <MenuOptionsPopover anchorEl={anchorEl} isOpen={isPopoverOpen} />
     </TableContainer>
   );
 };

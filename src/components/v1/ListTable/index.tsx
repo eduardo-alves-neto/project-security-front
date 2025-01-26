@@ -1,4 +1,4 @@
-import { Card, Stack, Typography } from "@mui/material";
+import { Box, Card, CircularProgress, Stack, Typography } from "@mui/material";
 import { IListTable } from "./hooks/useListTable";
 import {
   IListTablePagination,
@@ -28,9 +28,24 @@ export const LayoutListTable = <T,>(props: LayoutListTableProps<T>) => {
           </Typography>
         </Stack>
 
-        <ListTable {...props} />
+        {props.isLoading ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              minHeight: 200,
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        ) : (
+          <>
+            <ListTable {...props} />
 
-        {props.pagination && <ListTablePagination {...props.pagination} />}
+            {props.pagination && <ListTablePagination {...props.pagination} />}
+          </>
+        )}
       </Stack>
     </>
   );

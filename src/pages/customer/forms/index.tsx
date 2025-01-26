@@ -4,15 +4,20 @@ import { useForm } from "react-hook-form";
 import Grid from "@mui/material/Grid2";
 import { TextField } from "@mui/material";
 import { ICustomer } from "../services/types";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { customerServices } from "../services/customerServices";
 import { enqueueSnackbar } from "notistack";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
+import { useState } from "react";
+import { supabase } from "../../../supabase";
 
 export const CustomerFormView = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const id = state?.id;
   const form = useForm<ICustomer>();
   const { handleSubmit, register, watch } = form;
+  const [oldValues, setOldValues] = useState<Partial<ICustomer>>({});
 
   const { mutateAsync } = useMutation({
     mutationFn: async (values: ICustomer) => {
@@ -27,7 +32,22 @@ export const CustomerFormView = () => {
     },
   });
 
-  const onSubmit = async ({ values }: { values: ICustomer }) => {
+  const { isLoading } = useQuery({
+    queryKey: ["customer", id],
+    enabled: !!id,
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("customers")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+      form.reset(data);
+      setOldValues(data);
+    },
+  });
+
+  const onSubmit = async ({ values }) => {
     await mutateAsync(values);
   };
 
@@ -39,7 +59,12 @@ export const CustomerFormView = () => {
         breadcrumbs={[{ label: "lista", path: -1 }, { label: "criar" }]}
       />
 
-      <Form onHandleSubmit={handleSubmit} onSubmit={onSubmit} values={watch()}>
+      <Form<Partial<ICustomer>>
+        onHandleSubmit={handleSubmit}
+        onSubmit={onSubmit}
+        values={watch()}
+        oldValues={oldValues}
+      >
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, sm: 4, md: 2 }}>
             <TextField
