@@ -1,34 +1,44 @@
-import { Box, Popover } from "@mui/material";
+import { Box, Button, IconButton, Popover } from "@mui/material";
+import { useState } from "react";
+import { CiMenuKebab } from "react-icons/ci";
+import { IOptionsRow } from "../../types";
 
-interface IMenuOptionsPopover {
-  isOpen: boolean;
-  anchorEl: HTMLElement | null;
-  onClose: VoidFunction;
+interface IMenuOptionsPopover<T> {
+  options: IOptionsRow[];
+  row: T ;
 }
 
-export const MenuOptionsPopover = ({
-  anchorEl,
-  isOpen,
-  onClose: handleClosePopover,
-}: IMenuOptionsPopover) => {
+export const MenuOptionsPopover = <T,>({ options,row }: IMenuOptionsPopover<T>) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const isOpen = !!anchorEl;
   return (
-    <Popover
-      open={isOpen}
-      anchorEl={anchorEl}
-      onClose={handleClosePopover}
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "left",
-      }}
-    >
-      <Box p={2} sx={{ minWidth: 200 }}>
-        {/* <Typography variant="subtitle1">Detalhes da linha:</Typography>
-        <Typography variant="body2">
-          {selectedRow
-            ? JSON.stringify(selectedRow.original, null, 2)
-            : "Nenhum dado"}
-        </Typography> */}
-      </Box>
-    </Popover>
+    <>
+      <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
+        <CiMenuKebab />
+      </IconButton>
+
+      <Popover
+        open={isOpen}
+        anchorEl={anchorEl}
+        onClose={() => setAnchorEl(null)}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+      >
+        <Box p={2} sx={{ minWidth: 200 }}>
+          {options?.map((option) => (
+            <Button
+              onClick={() => {
+                console.log(row.original)
+                option.onClick();
+              }}
+            >
+              {option.label}
+            </Button>
+          ))}
+        </Box>
+      </Popover>
+    </>
   );
 };

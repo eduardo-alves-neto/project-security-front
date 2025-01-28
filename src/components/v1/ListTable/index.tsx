@@ -1,16 +1,15 @@
 import { Card, Stack, Typography } from "@mui/material";
 import { IListTable } from "./hooks/useListTable";
-import {
-  IListTablePagination,
-  ListTablePagination,
-} from "./listTablepagination";
+import { IListTablePagination } from "./listTablepagination";
 import ListTable from "./listTable";
 import CircularProgressComponent from "./components/circular-progress";
+import { IOptionsRow } from "./types";
 
-interface LayoutListTableProps<T> extends IListTable<T> {
+export interface LayoutListTableProps<T> extends IListTable<T> {
   pagination?: IListTablePagination;
   isLoading?: boolean;
   title?: string;
+  optionsRow?: IOptionsRow[];
 }
 
 export const LayoutListTable = <T,>(props: LayoutListTableProps<T>) => {
@@ -32,11 +31,7 @@ export const LayoutListTable = <T,>(props: LayoutListTableProps<T>) => {
         {props.isLoading ? (
           <CircularProgressComponent />
         ) : (
-          <>
-            <ListTable {...props} />
-
-            {props.pagination && <ListTablePagination {...props.pagination} />}
-          </>
+          <ListTable {...props} />
         )}
       </Stack>
     </>

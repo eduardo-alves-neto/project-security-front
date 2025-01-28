@@ -30,7 +30,7 @@ export const ListView = ({
         rows={rows}
         title="clientes"
         columns={Columns()}
-        
+        optionsRow={[{ label: "teste", onClick: () => console.log("test") }]}
         pagination={{
           rowsLength,
           rowsPerPage,
