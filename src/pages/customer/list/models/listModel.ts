@@ -18,7 +18,15 @@ export const useListModel = () => {
     },
   });
 
+  const mutationDelete = useMutation({
+    mutationFn: async ({ id }: { id: number }) => {
+      const res = await customerServices.delete(id);
+      return res;
+    },
+  });
+
   return {
     listDataQuery,
+    mutationDelete,
   };
 };

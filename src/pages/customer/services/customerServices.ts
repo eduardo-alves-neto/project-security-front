@@ -16,4 +16,9 @@ export class customerServices {
 
     return res;
   }
+
+  static async delete(id: number) {
+    const res = await supabase.from("customers").delete().eq("id", id);
+    return res;
+  }
 }

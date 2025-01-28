@@ -11,6 +11,7 @@ export const ListView = ({
   rowsPerPage,
   isLoading,
   Columns,
+  handlerDelete,
   handleChangePage,
   handleChangeRowsPerPage,
 }: ListViewModel) => {
@@ -30,7 +31,8 @@ export const ListView = ({
         rows={rows}
         title="clientes"
         columns={Columns()}
-        optionsRow={[{ label: "teste", onClick: () => console.log("test") }]}
+        onDeleteRow={(row) => handlerDelete(row.id)}
+        optionsRow={[{ label: "Test", onClick: () => console.log("test") }]}
         pagination={{
           rowsLength,
           rowsPerPage,

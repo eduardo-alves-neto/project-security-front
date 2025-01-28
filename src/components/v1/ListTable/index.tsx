@@ -10,6 +10,7 @@ export interface LayoutListTableProps<T> extends IListTable<T> {
   isLoading?: boolean;
   title?: string;
   optionsRow?: IOptionsRow[];
+  onDeleteRow?: (row: T) => void;
 }
 
 export const LayoutListTable = <T,>(props: LayoutListTableProps<T>) => {

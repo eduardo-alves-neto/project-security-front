@@ -4,7 +4,10 @@ import { ICustomer } from "../../services/types";
 import { enqueueSnackbar } from "notistack";
 import { columns } from "../constants/columns";
 
-export const useListViewModel = ({ listDataQuery }: ListModelType) => {
+export const useListViewModel = ({
+  listDataQuery,
+  mutationDelete,
+}: ListModelType) => {
   const [rowsLength, setRowsLength] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [page, setPage] = useState(0);
@@ -41,6 +44,16 @@ export const useListViewModel = ({ listDataQuery }: ListModelType) => {
     []
   );
 
+  const handlerDelete = useCallback(async (id: number) => {
+    await mutationDelete.mutateAsync({ id }).then((res) => {
+      if (res.status === 204) {
+        enqueueSnackbar("Cliente deletado", { variant: "success" });
+        return fetch();
+      }
+      return enqueueSnackbar("Erro ao deletar cliente", { variant: "error" });
+    });
+  }, []);
+
   const Columns = useCallback(() => columns(), []);
 
   return {
@@ -50,6 +63,7 @@ export const useListViewModel = ({ listDataQuery }: ListModelType) => {
     rowsPerPage,
     isLoading: isPending,
     Columns,
+    handlerDelete,
     handleChangePage,
     handleChangeRowsPerPage,
   };

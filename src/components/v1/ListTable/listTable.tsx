@@ -26,6 +26,7 @@ const ListTable = <T,>({
   rows,
   columns,
   optionsRow,
+  onDeleteRow,
   ...res
 }: ListTableProps<T> & LayoutListTableProps<T>) => {
   const table = useListTable<T>({ rows: rows ?? [], columns: columns ?? [] });
@@ -65,7 +66,7 @@ const ListTable = <T,>({
                           .toUpperCase()}
                       </TableCell>
                     ))}
-                    {/* <TableCell></TableCell> */}
+                    <TableCell></TableCell>
                   </React.Fragment>
                 ))}
               </TableRow>
@@ -77,7 +78,7 @@ const ListTable = <T,>({
                   {row?.getVisibleCells()?.map((cell) => (
                     <TableCell
                       key={cell.id}
-                      sx={{ borderBottom: 1 }}
+                      sx={{ borderBottom: 1, borderColor: "divider" }}
                       size={"medium"}
                     >
                       {flexRender(
@@ -90,10 +91,16 @@ const ListTable = <T,>({
                   {optionsRow && (
                     <TableCell
                       align="right"
-                      sx={{ borderBottom: 1 }}
+                      sx={{ borderBottom: 1, borderColor: "divider" }}
                       size={"small"}
                     >
-                      <MenuOptionsPopover row={row} options={optionsRow} />
+                      <MenuOptionsPopover
+                        row={row}
+                        options={optionsRow}
+                        onDeleteRow={(row) =>
+                          onDeleteRow && onDeleteRow(row.original)
+                        }
+                      />
                     </TableCell>
                   )}
                 </TableRow>
