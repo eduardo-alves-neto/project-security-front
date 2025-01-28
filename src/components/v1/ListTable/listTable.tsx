@@ -6,12 +6,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
 import { flexRender } from "@tanstack/react-table";
 import { useListTable, IListTable } from "./hooks/useListTable";
-import { PaletteColorOptions, Box, IconButton, Popover } from "@mui/material";
+import { PaletteColorOptions, IconButton } from "@mui/material";
 import { CgMoreVerticalO } from "react-icons/cg";
 import { MenuOptionsPopover } from "./components/menu-options-popover";
+import NotFoundRowsComponent from "./components/not-found-rows";
 
 interface ListTableProps<T> extends IListTable<T> {
   isLoading?: boolean;
@@ -41,22 +41,7 @@ const ListTable = <T,>({ rows, columns }: ListTableProps<T>) => {
       sx={{ boxShadow: "none", border: 1, borderColor: "divider" }}
     >
       {!rows ? (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            minHeight: 200,
-            backgroundColor: "#f9f9f9",
-            borderRadius: "4px",
-            borderTop: 1,
-            borderColor: "divider",
-          }}
-        >
-          <Typography variant="h6" color="textSecondary">
-            Sem dados
-          </Typography>
-        </Box>
+        <NotFoundRowsComponent />
       ) : (
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead
@@ -94,7 +79,11 @@ const ListTable = <T,>({ rows, columns }: ListTableProps<T>) => {
             {table?.getRowModel()?.rows?.map((row) => (
               <TableRow key={row.id}>
                 {row?.getVisibleCells()?.map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell
+                    key={cell.id}
+                    sx={{ borderBottom: 1 }}
+                    size={"small"}
+                  >
                     {flexRender(
                       cell?.column?.columnDef.cell,
                       cell.getContext()
@@ -102,9 +91,13 @@ const ListTable = <T,>({ rows, columns }: ListTableProps<T>) => {
                   </TableCell>
                 ))}
 
-                <TableCell align="right">
+                <TableCell
+                  align="right"
+                  sx={{ borderBottom: 1 }}
+                  size={"small"}
+                >
                   <IconButton
-                    onClick={(event) => handleOpenPopover(event, row)}
+                    onClick={(event) => handleOpenPopover(event, row.original)}
                   >
                     <CgMoreVerticalO />
                   </IconButton>
@@ -115,7 +108,11 @@ const ListTable = <T,>({ rows, columns }: ListTableProps<T>) => {
         </Table>
       )}
 
-      <MenuOptionsPopover anchorEl={anchorEl} isOpen={isPopoverOpen} />
+      <MenuOptionsPopover
+        anchorEl={anchorEl}
+        isOpen={isPopoverOpen}
+        onClose={handleClosePopover}
+      />
     </TableContainer>
   );
 };

@@ -1,14 +1,15 @@
 import { Box, Popover } from "@mui/material";
-import { MouseEvent } from "react";
 
 interface IMenuOptionsPopover {
   isOpen: boolean;
   anchorEl: HTMLElement | null;
+  onClose: VoidFunction;
 }
 
 export const MenuOptionsPopover = ({
   anchorEl,
   isOpen,
+  onClose: handleClosePopover,
 }: IMenuOptionsPopover) => {
   return (
     <Popover

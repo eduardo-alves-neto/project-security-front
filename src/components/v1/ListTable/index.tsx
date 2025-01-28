@@ -1,10 +1,11 @@
-import { Box, Card, CircularProgress, Stack, Typography } from "@mui/material";
+import { Card, Stack, Typography } from "@mui/material";
 import { IListTable } from "./hooks/useListTable";
 import {
   IListTablePagination,
   ListTablePagination,
 } from "./listTablepagination";
 import ListTable from "./listTable";
+import CircularProgressComponent from "./components/circular-progress";
 
 interface LayoutListTableProps<T> extends IListTable<T> {
   pagination?: IListTablePagination;
@@ -29,16 +30,7 @@ export const LayoutListTable = <T,>(props: LayoutListTableProps<T>) => {
         </Stack>
 
         {props.isLoading ? (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              minHeight: 200,
-            }}
-          >
-            <CircularProgress />
-          </Box>
+          <CircularProgressComponent />
         ) : (
           <>
             <ListTable {...props} />
