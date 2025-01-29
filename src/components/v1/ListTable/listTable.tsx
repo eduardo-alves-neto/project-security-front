@@ -95,10 +95,10 @@ const ListTable = <T,>({
                       size={"small"}
                     >
                       <MenuOptionsPopover
-                        row={row}
+                        row={row.original}
                         options={optionsRow}
                         onDeleteRow={(row) =>
-                          onDeleteRow && onDeleteRow(row.original)
+                          onDeleteRow && onDeleteRow(row)
                         }
                       />
                     </TableCell>

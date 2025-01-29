@@ -1,13 +1,15 @@
-import { Box, Button, Card, Stack } from "@mui/material";
+import { Button, Card, Stack } from "@mui/material";
 import { IForm } from "./types";
 import { useNavigate } from "react-router";
 import { useMemo } from "react";
 import compareStructures from "../../../utils/compareStructures";
+import { SkeletonComponent } from "./components/skeletonComponent";
 
 export function Form<T>({
   children,
   values,
   oldValues,
+  isLoading,
   onHandleSubmit,
   onSubmit,
 }: IForm<T>) {
@@ -36,7 +38,7 @@ export function Form<T>({
       component={"form"}
       onSubmit={onFormSubmit}
     >
-      <Box>{children}</Box>
+      {isLoading ? <SkeletonComponent /> : <>{children}</>}
 
       <Stack
         alignItems="center"
@@ -45,9 +47,6 @@ export function Form<T>({
         spacing={2}
         mt={3}
       >
-        <Button type="reset" variant="outlined" color="error">
-          Limpar dados
-        </Button>
         <Button
           type="button"
           color="secondary"
@@ -56,8 +55,9 @@ export function Form<T>({
         >
           cancelar
         </Button>
+        
         <Button
-          disabled={!hasChange}
+          disabled={!hasChange || isLoading}
           type="submit"
           variant="contained"
           sx={{ boxShadow: 1 }}

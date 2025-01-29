@@ -1,5 +1,5 @@
-export const routes = {
+export const customerRoutes = {
   list: () => "customers",
   create: () => "/customers/create",
-  update: (uuid: string) => "/customers/update/" + uuid,
+  update: (id: string) => "/customers/update/" + id,
 };

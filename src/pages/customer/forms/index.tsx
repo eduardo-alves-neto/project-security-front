@@ -7,17 +7,17 @@ import { ICustomer } from "../services/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { customerServices } from "../services/customerServices";
 import { enqueueSnackbar } from "notistack";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useState } from "react";
 import { supabase } from "../../../supabase";
 
 export const CustomerFormView = () => {
   const navigate = useNavigate();
-  const { state } = useLocation();
-  const id = state?.id;
+  const params = useParams();
+  const id = params?.id;
   const form = useForm<ICustomer>();
   const { handleSubmit, register, watch } = form;
-  const [oldValues, setOldValues] = useState<Partial<ICustomer>>({});
+  const [oldValues, setOldValues] = useState<ICustomer>({} as ICustomer);
 
   const { mutateAsync } = useMutation({
     mutationFn: async (values: ICustomer) => {
@@ -47,7 +47,7 @@ export const CustomerFormView = () => {
     },
   });
 
-  const onSubmit = async ({ values }) => {
+  const onSubmit = async ({ values }: { values: ICustomer }) => {
     await mutateAsync(values);
   };
 
@@ -59,56 +59,64 @@ export const CustomerFormView = () => {
         breadcrumbs={[{ label: "lista", path: -1 }, { label: "criar" }]}
       />
 
-      <Form<Partial<ICustomer>>
+      <Form
         onHandleSubmit={handleSubmit}
         onSubmit={onSubmit}
         values={watch()}
         oldValues={oldValues}
+        isLoading={isLoading}
       >
         <Grid container spacing={2}>
-          <Grid size={{ xs: 12, sm: 4, md: 2 }}>
+          <Grid size={{ xs: 12, sm: 4, md: 4 }}>
             <TextField
-              label={"Nome"}
               required
               fullWidth
               size="small"
+              label={"Nome"}
+              value={watch("name")}
               {...register("name", { required: true })}
             />
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 4, md: 2 }}>
+          <Grid size={{ xs: 12, sm: 4, md: 4 }}>
             <TextField
-              label={"Sobrenome"}
               required
               fullWidth
               size="small"
+              value={watch("lastName")}
+              label={"Sobrenome"}
               {...register("lastName", { required: true })}
             />
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 8, md: 6 }}>
+          <Grid size={{ xs: 12, sm: 4, md: 4 }}>
             <TextField
-              label={"Email"}
-              type="email"
+              fullWidth
               size="small"
+              type="email"
+              label={"Email"}
+              value={watch("email")}
               {...register("email")}
             />
           </Grid>
 
           <Grid size={{ xs: 12, sm: 4, md: 4 }}>
             <TextField
-              label={"Telefone"}
               fullWidth
               type="tel"
               size="small"
+              label={"Telefone"}
+              value={watch("phone")}
               {...register("phone")}
             />
           </Grid>
 
           <Grid size={{ xs: 12, sm: 4, md: 4 }}>
             <TextField
-              label={"Tipo de pessoa"}
+              fullWidth
               size="small"
+              value={watch("typePerson")}
+              label={"Tipo de pessoa"}
               {...register("typePerson")}
             />
           </Grid>

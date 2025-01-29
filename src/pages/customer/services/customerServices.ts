@@ -4,7 +4,7 @@ import { ICustomer } from "./types";
 export class customerServices {
   static async get({ from, to }: { from: number; to: number }) {
     const res = await supabase
-      .from("customers")
+      .from("customerss")
       .select("*", { count: "exact" })
       .range(from, to);
 

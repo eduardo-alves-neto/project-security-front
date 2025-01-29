@@ -11,4 +11,5 @@ export interface IForm<T> extends PropsWithChildren {
   onSubmit: onSubmitType<T>;
   values: T;
   oldValues?: T;
+  isLoading?: boolean;
 }

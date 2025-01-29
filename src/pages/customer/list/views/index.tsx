@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { Title } from "../../../../components/v1/title";
 import { LayoutListTable } from "../../../../components/v1/ListTable";
 import { ListViewModel } from "../types";
-import { routes } from "../../constants/routes";
+import { customerRoutes } from "../../constants/routes";
 
 export const ListView = ({
   page,
@@ -23,7 +23,7 @@ export const ListView = ({
         buttonTitle="Adicionar cliente"
         breadcrumbs={[{ label: "Clientes" }]}
         onNewRegisterNavigate={() =>
-          navigate(routes.create(), { viewTransition: true })
+          navigate(customerRoutes.create(), { viewTransition: true })
         }
       />
 
@@ -32,7 +32,12 @@ export const ListView = ({
         title="clientes"
         columns={Columns()}
         onDeleteRow={(row) => handlerDelete(row.id)}
-        optionsRow={[{ label: "Test", onClick: () => console.log("test") }]}
+        optionsRow={[
+          {
+            label: "Editar",
+            onClick: (row) => navigate(customerRoutes.update(row.id)),
+          },
+        ]}
         pagination={{
           rowsLength,
           rowsPerPage,
