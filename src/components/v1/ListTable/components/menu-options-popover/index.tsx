@@ -1,7 +1,15 @@
-import { Button, IconButton, Popover, Stack } from "@mui/material";
+import * as React from "react";
 import { useState } from "react";
 import { IOptionsRow } from "../../types";
 import { TfiMoreAlt } from "react-icons/tfi";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+import { Button, IconButton, Popover, Stack } from "@mui/material";
+import { TransitionProps } from "@mui/material/transitions";
 
 interface IMenuOptionsPopover<T> {
   row: T;
@@ -16,6 +24,23 @@ export const MenuOptionsPopover = <T,>({
 }: IMenuOptionsPopover<T>) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isOpen = !!anchorEl;
+  const [openDialog, setOpenDialog] = useState(false); 
+
+  const handleClickDelete = () => {
+    setOpenDialog(true); 
+    setAnchorEl(null); 
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false); 
+  };
+
+  const handleConfirmDelete = () => {
+    if (onDeleteRow) {
+      onDeleteRow(row); 
+    }
+    setOpenDialog(false); 
+  };
 
   return (
     <>
@@ -61,15 +86,71 @@ export const MenuOptionsPopover = <T,>({
           <Button
             color="error"
             sx={{ textTransform: "inherit", justifyContent: "flex-start" }}
-            onClick={() => {
-              if (onDeleteRow) onDeleteRow(row);
-              setAnchorEl(null);
-            }}
+            onClick={handleClickDelete}
           >
             {"Deletar"}
           </Button>
         </Stack>
       </Popover>
+
+      <AlertDialogSlide
+        open={openDialog}
+        onClose={handleCloseDialog}
+        onConfirm={handleConfirmDelete} 
+      />
     </>
   );
 };
+
+interface IAlertDialagoSlid {
+  open: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+}
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>;
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+export default function AlertDialogSlide({
+  open,
+  onClose,
+  onConfirm,
+}: IAlertDialagoSlid) {
+  const handleClose = () => {
+    onClose();
+  };
+
+  const handleConfirm = () => {
+    onConfirm(); 
+    onClose(); 
+  };
+
+  return (
+    <Dialog
+      open={open}
+      keepMounted
+      onClose={handleClose}
+      TransitionComponent={Transition}
+      aria-describedby="alert-dialog-slide-description"
+    >
+      <DialogTitle>{"Você tem certeza que deseja excluir?"}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-slide-description">
+          Esta ação não pode ser desfeita.
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>Cancelar</Button>
+        <Button onClick={handleConfirm} color="error">
+          Deletar
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
