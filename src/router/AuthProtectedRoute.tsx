@@ -1,12 +1,10 @@
 import { Outlet } from "react-router";
-import NotFoundPage from "../pages/404Page";
-import { useSession } from "../contexts/sessionContext";
 import { MainLayout } from "../core/main-layout";
 
 const AuthProtectedRoute = () => {
-  const { session } = useSession();
+  //const { isAuthenticated } = useSession();
 
-  if (!session) return <NotFoundPage />;
+  //if (!isAuthenticated) return <NotFoundPage />;
 
   return (
     <MainLayout>

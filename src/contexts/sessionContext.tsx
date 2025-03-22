@@ -1,12 +1,16 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import LoadingPage from "../pages/LoadingPage";
-import { Session } from "@supabase/supabase-js";
-import { supabase } from "../supabase";
+import { IUser } from "../auth/services/auth";
+import { authService } from "../auth/services/auth";
 
-const SessionContext = createContext<{
-  session: Session | null;
-}>({
-  session: null,
+interface SessionContextType {
+  user: IUser | null;
+  isAuthenticated: boolean;
+}
+
+const SessionContext = createContext<SessionContextType>({
+  user: null,
+  isAuthenticated: false,
 });
 
 export const useSession = () => {
@@ -17,26 +21,25 @@ export const useSession = () => {
   return context;
 };
 
-type Props = { children: React.ReactNode };
+interface Props {
+  children: React.ReactNode;
+}
+
 export const SessionProvider = ({ children }: Props) => {
-  const [session, setSession] = useState<Session | null>(null);
+  const [user, setUser] = useState<IUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const authStateListener = supabase.auth.onAuthStateChange(
-      async (_, session) => {
-        setSession(session);
-        setIsLoading(false);
-      }
-    );
-
-    return () => {
-      authStateListener.data.subscription.unsubscribe();
-    };
-  }, [supabase]);
+    const token = authService.getToken();
+    if (token) {
+      // Aqui você pode fazer uma chamada para obter os dados do usuário
+      setUser({ id: "1", email: "user@example.com" });
+    }
+    setIsLoading(false);
+  }, []);
 
   return (
-    <SessionContext.Provider value={{ session }}>
+    <SessionContext.Provider value={{ user, isAuthenticated: !!user }}>
       {isLoading ? <LoadingPage /> : children}
     </SessionContext.Provider>
   );

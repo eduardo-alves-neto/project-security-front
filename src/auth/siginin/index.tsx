@@ -2,24 +2,24 @@ import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { LayoutDefault } from "../layout-default";
 import { Link, useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
-import { SignIn } from "./services/signinServices";
 import { useForm } from "react-hook-form";
-import { ISignin } from "./services/signinServices";
+import { ISignIn } from "../services/auth";
 import { enqueueSnackbar } from "notistack";
 import { useSession } from "../../contexts/sessionContext";
 import { schema } from "./schema";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useEffect } from "react";
+import { authService } from "../services/auth";
 
 export const SignInComponent = () => {
-  const { session } = useSession();
+  const { isAuthenticated } = useSession();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (session) navigate("/home");
-  }, [session, navigate]);
+    if (isAuthenticated) navigate("/home");
+  }, [isAuthenticated, navigate]);
 
-  const form = useForm<ISignin>({
+  const form = useForm<ISignIn>({
     resolver: joiResolver(schema),
     mode: "onBlur",
   });
@@ -30,19 +30,17 @@ export const SignInComponent = () => {
   } = form;
 
   const { mutateAsync } = useMutation({
-    mutationFn: async ({
-      email,
-      password,
-    }: {
-      email: string;
-      password: string;
-    }) => {
-      const res = await SignIn.post({ email, password });
-      if (res.error) enqueueSnackbar(res.error.message, { variant: "error" });
+    mutationFn: async (data: ISignIn) => {
+      const response = await authService.signIn(data);
+      authService.setToken(response.token);
+      return response;
     },
-    onError: (error) => {
-      console.error(error);
-      enqueueSnackbar(error.message, { variant: "error" });
+    onSuccess: () => {
+      enqueueSnackbar("Login realizado com sucesso", { variant: "success" });
+      navigate("/home");
+    },
+    onError: (error: any) => {
+      enqueueSnackbar(error.response?.data?.message || "Erro ao fazer login", { variant: "error" });
     },
   });
 
@@ -84,11 +82,12 @@ export const SignInComponent = () => {
 
             <TextField
               label="Senha"
+              type="password"
               size="medium"
               fullWidth
-              {...register("password")}
-              helperText={errors.password?.message}
-              error={!!errors.password?.message}
+              {...register("senha")}
+              helperText={errors.senha?.message}
+              error={!!errors.senha?.message}
               slotProps={{ inputLabel: { shrink: true } }}
             />
           </Stack>

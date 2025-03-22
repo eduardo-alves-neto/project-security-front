@@ -9,7 +9,6 @@ import { customerServices } from "../services/customerServices";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate, useParams } from "react-router";
 import { useState } from "react";
-import { supabase } from "../../../supabase";
 
 export const CustomerFormView = () => {
   const navigate = useNavigate();
@@ -21,14 +20,18 @@ export const CustomerFormView = () => {
 
   const { mutateAsync } = useMutation({
     mutationFn: async (values: ICustomer) => {
-      await customerServices.create(values);
+      if (id) {
+        await customerServices.update(Number(id), values);
+      } else {
+        await customerServices.create(values);
+      }
     },
     onSuccess: () => {
-      enqueueSnackbar("Cliente criado com sucesso", { variant: "success" });
+      enqueueSnackbar(`Cliente ${id ? 'atualizado' : 'criado'} com sucesso`, { variant: "success" });
       navigate(-1);
     },
-    onError: () => {
-      enqueueSnackbar("Erro ao criar cliente", { variant: "error" });
+    onError: (error: any) => {
+      enqueueSnackbar(error.response?.data?.message || `Erro ao ${id ? 'atualizar' : 'criar'} cliente`, { variant: "error" });
     },
   });
 
@@ -36,12 +39,7 @@ export const CustomerFormView = () => {
     queryKey: ["customer", id],
     enabled: !!id,
     queryFn: async () => {
-      const { data } = await supabase
-        .from("customers")
-        .select("*")
-        .eq("id", id)
-        .single();
-
+      const data = await customerServices.getById(Number(id));
       form.reset(data);
       setOldValues(data);
     },
@@ -56,7 +54,7 @@ export const CustomerFormView = () => {
       <Title
         title="Clientes"
         hideTitleButton
-        breadcrumbs={[{ label: "lista", path: -1 }, { label: "criar" }]}
+        breadcrumbs={[{ label: "lista", path: -1 }, { label: id ? "editar" : "criar" }]}
       />
 
       <Form

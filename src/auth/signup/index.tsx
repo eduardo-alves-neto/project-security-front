@@ -2,44 +2,45 @@ import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { LayoutDefault } from "../layout-default";
 import { Link, useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
-import { ISignup, SignUp } from "./services/signupServices";
 import { useForm } from "react-hook-form";
+import { ISignUp } from "../services/auth";
 import { enqueueSnackbar } from "notistack";
 import { useSession } from "../../contexts/sessionContext";
 import { schema } from "./schema";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useEffect } from "react";
+import { authService } from "../services/auth";
 
 export const SignUpComponent = () => {
-  const { session } = useSession();
+  const { isAuthenticated } = useSession();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (session) navigate("/home");
-  }, [session, navigate]);
 
-  const form = useForm<ISignup>({
+  useEffect(() => {
+    if (isAuthenticated) navigate("/home");
+  }, [isAuthenticated, navigate]);
+
+  const form = useForm<ISignUp>({
     resolver: joiResolver(schema),
     mode: "onBlur",
   });
+
   const {
     register,
     formState: { errors },
   } = form;
 
   const { mutateAsync } = useMutation({
-    mutationFn: async ({
-      email,
-      password,
-    }: {
-      email: string;
-      password: string;
-    }) => {
-      const res = await SignUp.post({ email, password });
-      if (res.error) enqueueSnackbar(res.error.message, { variant: "error" });
+    mutationFn: async (data: ISignUp) => {
+      const response = await authService.signUp(data);
+      authService.setToken(response.token);
+      return response;
     },
-    onError: (error) => {
-      console.error(error);
-      enqueueSnackbar(error.message, { variant: "error" });
+    onSuccess: () => {
+      enqueueSnackbar("Cadastro realizado com sucesso", { variant: "success" });
+      navigate("/home");
+    },
+    onError: (error: any) => {
+      enqueueSnackbar(error.response?.data?.message || "Erro ao fazer cadastro", { variant: "error" });
     },
   });
 
@@ -71,12 +72,20 @@ export const SignUpComponent = () => {
 
           <Stack spacing={5} pb={3}>
             <TextField
+              label="Nome"
+              size="medium"
+              fullWidth
+              {...register("nome")}
+              helperText={errors.nome?.message}
+              error={!!errors.nome?.message}
+              slotProps={{ inputLabel: { shrink: true } }}
+            />
+
+            <TextField
               label="Email"
               size="medium"
               fullWidth
-              {...register("email", {
-                required: "Campo obrigatório",
-              })}
+              {...register("email")}
               helperText={errors.email?.message}
               error={!!errors.email?.message}
               slotProps={{ inputLabel: { shrink: true } }}
@@ -84,13 +93,12 @@ export const SignUpComponent = () => {
 
             <TextField
               label="Senha"
+              type="password"
               size="medium"
               fullWidth
-              {...register("password", {
-                required: "Campo obrigatório",
-              })}
-              helperText={errors.password?.message}
-              error={!!errors.password?.message}
+              {...register("senha")}
+              helperText={errors.senha?.message}
+              error={!!errors.senha?.message}
               slotProps={{ inputLabel: { shrink: true } }}
             />
           </Stack>

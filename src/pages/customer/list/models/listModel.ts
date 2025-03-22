@@ -12,16 +12,13 @@ export const useListModel = () => {
       const from = page * rowsPerPage;
       const to = from + rowsPerPage - 1;
 
-      const res = await customerServices.get({ from, to });
-
-      return res;
+      return await customerServices.get({ from, to });
     },
   });
 
   const mutationDelete = useMutation({
     mutationFn: async ({ id }: { id: number }) => {
-      const res = await customerServices.delete(id);
-      return res;
+      await customerServices.delete(id);
     },
   });
 

@@ -12,11 +12,9 @@ import { DRAWER_WIDTH } from "../menu-drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { IoMenuOutline } from "react-icons/io5";
 import { MdLogout } from "react-icons/md";
-import { supabase } from "../../../supabase";
-import { useNavigate } from "react-router";
-import { enqueueSnackbar } from "notistack";
 import { useState } from "react";
 import { FcSettings } from "react-icons/fc";
+import { authService } from "../../../auth/services/auth";
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -50,7 +48,7 @@ export default function NavBar() {
   const { openDrawer: open, setOpenDrawer } = useSettings();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
     setOpenDrawer(true);
@@ -127,9 +125,7 @@ export default function NavBar() {
           >
             <IconButton
               onClick={async () => {
-                const { error } = await supabase.auth.signOut();
-                if (!error) return navigate("/auth/sign-in");
-                enqueueSnackbar("Erro ao sair", { variant: "error" });
+                await authService.signOut();
               }}
             >
               <MdLogout color="" />
