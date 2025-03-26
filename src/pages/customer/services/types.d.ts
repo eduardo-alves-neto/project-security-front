@@ -1,8 +1,19 @@
 export interface ICustomer {
-  id: number;
-  name: string;
+  id?: string;
+  nome: string;
   email: string;
-  typePerson: string;
-  phone: string;
-  lastName: string;
+  telefone: string;
+  cpf: string;
+  endereco?: {
+    rua?: string;
+    numero?: string;
+    complemento?: string;
+    bairro?: string;
+    cidade?: string;
+    estado?: string;
+    cep?: string;
+  };
+  dataNascimento?: Date;
+  observacoes?: string;
+  ativo?: boolean;
 }

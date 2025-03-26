@@ -3,11 +3,7 @@ import { ICustomer } from "../../services/types";
 
 export const columns = (): ColumnDef<ICustomer>[] => [
   {
-    accessorKey: "id",
-    header: "ID",
-  },
-  {
-    accessorKey: "name",
+    accessorKey: "nome",
     header: "Name",
   },
   {
@@ -15,11 +11,11 @@ export const columns = (): ColumnDef<ICustomer>[] => [
     header: "Email",
   },
   {
-    accessorKey: "phone",
+    accessorKey: "telefone",
     header: "Telefone",
   },
   {
-    accessorKey: "typePerson",
-    header: "Tipo de pessoa",
+    accessorKey: "cpf",
+    header: "CPF",
   },
 ];

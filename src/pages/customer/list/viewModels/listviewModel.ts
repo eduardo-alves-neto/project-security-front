@@ -16,13 +16,21 @@ export const useListViewModel = ({
   const { mutateAsync, isPending } = listDataQuery;
 
   const fetch = useCallback(() => {
-    mutateAsync({ page, rowsPerPage }).then((res) => {
-      setRows(res.data);
-      setRowsLength(res.count);
-    }).catch((error) => {
-      enqueueSnackbar(error.response?.data?.message || "Erro ao carregar clientes", { variant: "error" });
-    });
-  }, [page, rowsPerPage]);
+    mutateAsync()
+      .then((res) => {
+        const data = res.map((item: any) => ({
+          id: item._id,
+          ...item,
+        }));
+        setRows(data);
+      })
+      .catch((error) => {
+        enqueueSnackbar(
+          error.response?.data?.message || "Erro ao carregar clientes",
+          { variant: "error" }
+        );
+      });
+  }, []);
 
   useEffect(() => {
     fetch();
@@ -40,15 +48,21 @@ export const useListViewModel = ({
     []
   );
 
-  const handlerDelete = useCallback(async (id: number) => {
-    try {
-      await mutationDelete.mutateAsync({ id });
-      enqueueSnackbar("Cliente deletado com sucesso", { variant: "success" });
-      fetch();
-    } catch (error: any) {
-      enqueueSnackbar(error.response?.data?.message || "Erro ao deletar cliente", { variant: "error" });
-    }
-  }, [fetch]);
+  const handlerDelete = useCallback(
+    async (id: string) => {
+      try {
+        await mutationDelete.mutateAsync({ id });
+        enqueueSnackbar("Cliente deletado com sucesso", { variant: "success" });
+        fetch();
+      } catch (error: any) {
+        enqueueSnackbar(
+          error.response?.data?.message || "Erro ao deletar cliente",
+          { variant: "error" }
+        );
+      }
+    },
+    [fetch]
+  );
 
   const Columns = useCallback(() => columns(), []);
 

@@ -16,6 +16,7 @@ export const ListView = ({
   handleChangeRowsPerPage,
 }: ListViewModel) => {
   const navigate = useNavigate();
+
   return (
     <>
       <Title
@@ -31,7 +32,7 @@ export const ListView = ({
         rows={rows}
         title="clientes"
         columns={Columns()}
-        onDeleteRow={(row) => handlerDelete(row.id)}
+        onDeleteRow={(row) => handlerDelete(row.id!)}
         optionsRow={[
           {
             label: "Editar",

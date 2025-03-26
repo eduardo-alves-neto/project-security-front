@@ -15,9 +15,9 @@ export const SignInComponent = () => {
   const { isAuthenticated } = useSession();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isAuthenticated) navigate("/home");
-  }, [isAuthenticated, navigate]);
+  // useEffect(() => {
+  //   if (isAuthenticated) navigate("/home");
+  // }, [isAuthenticated, navigate]);
 
   const form = useForm<ISignIn>({
     resolver: joiResolver(schema),
