@@ -8,16 +8,15 @@ import { enqueueSnackbar } from "notistack";
 import { useSession } from "../../contexts/sessionContext";
 import { schema } from "./schema";
 import { joiResolver } from "@hookform/resolvers/joi";
-import { useEffect } from "react";
 import { authService } from "../services/auth";
 
 export const SignUpComponent = () => {
   const { isAuthenticated } = useSession();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isAuthenticated) navigate("/home");
-  }, [isAuthenticated, navigate]);
+  // useEffect(() => {
+  //   if (isAuthenticated) navigate("/home");
+  // }, [isAuthenticated, navigate]);
 
   const form = useForm<ISignUp>({
     resolver: joiResolver(schema),

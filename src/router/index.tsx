@@ -6,6 +6,7 @@ import { SignInComponent } from "../auth/siginin/index.tsx";
 import { SignUpComponent } from "../auth/signup/index.tsx";
 import Home from "../pages/home/home.tsx";
 import { routeCustomers } from "../pages/customer/routers.tsx";
+import LandingPage from "../pages/landing/index.tsx";
 import { Button, Stack } from "@mui/material";
 
 const protectedRoutes: RouteObject[] = [
@@ -19,27 +20,7 @@ const protectedRoutes: RouteObject[] = [
 const publicRoutes: RouteObject[] = [
   {
     path: "/",
-    element: (
-      <Stack
-        height="100dvh"
-        justifyContent="center"
-        alignItems="center"
-        gap={2}
-      >
-        <Button
-          variant="contained"
-          onClick={() => window.open("/auth/sign-in")}
-        >
-          sign-in
-        </Button>
-        <Button
-          variant="contained"
-          onClick={() => window.open("/auth/sign-up")}
-        >
-          sign-up
-        </Button>
-      </Stack>
-    ),
+    element: <LandingPage />,
   },
   {
     path: "auth/sign-in",
