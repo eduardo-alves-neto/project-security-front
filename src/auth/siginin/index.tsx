@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { LayoutDefault } from "../layout-default";
 import { Link, useNavigate } from "react-router";
@@ -5,19 +6,15 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { ISignIn } from "../services/auth";
 import { enqueueSnackbar } from "notistack";
-import { useSession } from "../../contexts/sessionContext";
 import { schema } from "./schema";
 import { joiResolver } from "@hookform/resolvers/joi";
-import { useEffect } from "react";
 import { authService } from "../services/auth";
+import { useSession } from "../../contexts/sessionContext";
+import { decodeToken } from "../../utils/decode_jtw";
 
 export const SignInComponent = () => {
-  const { isAuthenticated } = useSession();
+  const { setUser } = useSession();
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (isAuthenticated) navigate("/home");
-  // }, [isAuthenticated, navigate]);
 
   const form = useForm<ISignIn>({
     resolver: joiResolver(schema),
@@ -26,6 +23,7 @@ export const SignInComponent = () => {
 
   const {
     register,
+    handleSubmit,
     formState: { errors },
   } = form;
 
@@ -33,6 +31,10 @@ export const SignInComponent = () => {
     mutationFn: async (data: ISignIn) => {
       const response = await authService.signIn(data);
       authService.setToken(response.token);
+      setUser((user) => ({
+        ...user,
+        name: (decodeToken(response.token) as any).name || "",
+      }));
       return response;
     },
     onSuccess: () => {
@@ -40,7 +42,9 @@ export const SignInComponent = () => {
       navigate("/home");
     },
     onError: (error: any) => {
-      enqueueSnackbar(error.response?.data?.message || "Erro ao fazer login", { variant: "error" });
+      enqueueSnackbar(error.response?.data?.message || "Erro ao fazer login", {
+        variant: "error",
+      });
     },
   });
 
@@ -59,7 +63,7 @@ export const SignInComponent = () => {
         }}
         justifyContent="center"
       >
-        <form onSubmit={form.handleSubmit(submit)}>
+        <form>
           <Stack gap={2} mb={4}>
             <Typography variant={"h4"} fontWeight="bold">
               {"Login"}
@@ -85,9 +89,9 @@ export const SignInComponent = () => {
               type="password"
               size="medium"
               fullWidth
-              {...register("senha")}
-              helperText={errors.senha?.message}
-              error={!!errors.senha?.message}
+              {...register("password")}
+              helperText={errors.password?.message}
+              error={!!errors.password?.message}
               slotProps={{ inputLabel: { shrink: true } }}
             />
           </Stack>
@@ -98,7 +102,7 @@ export const SignInComponent = () => {
               size="medium"
               fullWidth
               variant="contained"
-              type="submit"
+              onClick={handleSubmit(submit)}
             >
               Entrar
             </Button>

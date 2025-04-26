@@ -8,7 +8,7 @@ const LandingPage = () => {
     <Box
       sx={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #1a237e 0%, #0d47a1 100%)",
+        background: "linear-gradient(135deg, #001848 0%, #0d47a1 100%)",
         color: "white",
         py: 8,
       }}
@@ -47,7 +47,7 @@ const LandingPage = () => {
               <Button
                 variant="contained"
                 size="large"
-                onClick={() => navigate("/auth/sign-in")}
+                onClick={() => navigate("/auth/sign-in", { viewTransition: true })}
                 sx={{
                   bgcolor: "white",
                   color: "#1a237e",
@@ -61,7 +61,7 @@ const LandingPage = () => {
               <Button
                 variant="outlined"
                 size="large"
-                onClick={() => navigate("/auth/sign-up")}
+                onClick={() => navigate("/auth/sign-up", { viewTransition: true })}
                 sx={{
                   borderColor: "white",
                   color: "white",
@@ -76,7 +76,7 @@ const LandingPage = () => {
             </Stack>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Box
+            {/* <Box
               component="img"
               src="/security-illustration.svg"
               alt="Ilustração de segurança"
@@ -87,7 +87,7 @@ const LandingPage = () => {
                 display: "block",
                 margin: "0 auto",
               }}
-            />
+            /> */}
           </Grid>
         </Grid>
       </Container>
@@ -95,4 +95,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage; 
+export default LandingPage;

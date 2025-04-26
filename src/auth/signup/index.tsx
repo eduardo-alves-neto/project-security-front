@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { LayoutDefault } from "../layout-default";
 import { Link, useNavigate } from "react-router";
@@ -5,18 +6,12 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { ISignUp } from "../services/auth";
 import { enqueueSnackbar } from "notistack";
-import { useSession } from "../../contexts/sessionContext";
 import { schema } from "./schema";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { authService } from "../services/auth";
 
 export const SignUpComponent = () => {
-  const { isAuthenticated } = useSession();
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (isAuthenticated) navigate("/home");
-  // }, [isAuthenticated, navigate]);
 
   const form = useForm<ISignUp>({
     resolver: joiResolver(schema),
@@ -39,7 +34,10 @@ export const SignUpComponent = () => {
       navigate("/home");
     },
     onError: (error: any) => {
-      enqueueSnackbar(error.response?.data?.message || "Erro ao fazer cadastro", { variant: "error" });
+      enqueueSnackbar(
+        error.response?.data?.message || "Erro ao fazer cadastro",
+        { variant: "error" }
+      );
     },
   });
 
@@ -74,9 +72,9 @@ export const SignUpComponent = () => {
               label="Nome"
               size="medium"
               fullWidth
-              {...register("nome")}
-              helperText={errors.nome?.message}
-              error={!!errors.nome?.message}
+              {...register("name")}
+              helperText={errors.name?.message}
+              error={!!errors.name?.message}
               slotProps={{ inputLabel: { shrink: true } }}
             />
 
@@ -95,9 +93,9 @@ export const SignUpComponent = () => {
               type="password"
               size="medium"
               fullWidth
-              {...register("senha")}
-              helperText={errors.senha?.message}
-              error={!!errors.senha?.message}
+              {...register("password")}
+              helperText={errors.password?.message}
+              error={!!errors.password?.message}
               slotProps={{ inputLabel: { shrink: true } }}
             />
           </Stack>

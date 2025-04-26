@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <Grid container spacing={2}>
       <Grid size={{ xs: 12, md: 4 }}>
-        <Typography variant="h5" color='primary'>{`Bem vindo ${user?.email}`}</Typography>
+        <Typography variant="h5" color='primary'>{`Bem vindo ${user?.name}`}</Typography>
       </Grid>
     </Grid>
   );

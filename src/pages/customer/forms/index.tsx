@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Title } from "../../../components/v1/title";
 import { Form } from "../../../components/v1/form";
 import { useForm } from "react-hook-form";
@@ -80,8 +81,8 @@ export const CustomerFormView = () => {
               fullWidth
               size="small"
               label={"Nome"}
-              value={watch("nome")}
-              {...register("nome", { required: true })}
+              value={watch("name")}
+              {...register("name", { required: true })}
             />
           </Grid>
 
@@ -115,78 +116,8 @@ export const CustomerFormView = () => {
               type="tel"
               size="small"
               label={"Telefone"}
-              value={watch("telefone")}
-              {...register("telefone", { required: true })}
-            />
-          </Grid>
-
-          <Grid size={{ xs: 12, sm: 12, md: 12 }}>
-            <TextField
-              fullWidth
-              size="small"
-              label={"Endereço"}
-              value={watch("endereco.rua")}
-              {...register("endereco.rua")}
-            />
-          </Grid>
-
-          <Grid size={{ xs: 12, sm: 4, md: 4 }}>
-            <TextField
-              fullWidth
-              size="small"
-              label={"Número"}
-              value={watch("endereco.numero")}
-              {...register("endereco.numero")}
-            />
-          </Grid>
-
-          <Grid size={{ xs: 12, sm: 4, md: 4 }}>
-            <TextField
-              fullWidth
-              size="small"
-              label={"Complemento"}
-              value={watch("endereco.complemento")}
-              {...register("endereco.complemento")}
-            />
-          </Grid>
-
-          <Grid size={{ xs: 12, sm: 4, md: 4 }}>
-            <TextField
-              fullWidth
-              size="small"
-              label={"Bairro"}
-              value={watch("endereco.bairro")}
-              {...register("endereco.bairro")}
-            />
-          </Grid>
-
-          <Grid size={{ xs: 12, sm: 4, md: 4 }}>
-            <TextField
-              fullWidth
-              size="small"
-              label={"Cidade"}
-              value={watch("endereco.cidade")}
-              {...register("endereco.cidade")}
-            />
-          </Grid>
-
-          <Grid size={{ xs: 12, sm: 4, md: 4 }}>
-            <TextField
-              fullWidth
-              size="small"
-              label={"Estado"}
-              value={watch("endereco.estado")}
-              {...register("endereco.estado")}
-            />
-          </Grid>
-
-          <Grid size={{ xs: 12, sm: 4, md: 4 }}>
-            <TextField
-              fullWidth
-              size="small"
-              label={"CEP"}
-              value={watch("endereco.cep")}
-              {...register("endereco.cep")}
+              value={watch("phone")}
+              {...register("phone")}
             />
           </Grid>
         </Grid>

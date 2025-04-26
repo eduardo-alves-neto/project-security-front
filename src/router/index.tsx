@@ -7,7 +7,6 @@ import { SignUpComponent } from "../auth/signup/index.tsx";
 import Home from "../pages/home/home.tsx";
 import { routeCustomers } from "../pages/customer/routers.tsx";
 import LandingPage from "../pages/landing/index.tsx";
-import { Button, Stack } from "@mui/material";
 
 const protectedRoutes: RouteObject[] = [
   {

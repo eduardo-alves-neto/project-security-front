@@ -1,16 +1,17 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import LoadingPage from "../pages/LoadingPage";
-import { IUser } from "../auth/services/auth";
-import { authService } from "../auth/services/auth";
+import { authService, IUser } from "../auth/services/auth";
 
 interface SessionContextType {
-  user: IUser | null;
+  user: Partial<IUser> | null;
   isAuthenticated: boolean;
+  setUser: React.Dispatch<React.SetStateAction<Partial<IUser> | null>>;
 }
 
 const SessionContext = createContext<SessionContextType>({
   user: null,
   isAuthenticated: false,
+  setUser: () => null,
 });
 
 export const useSession = () => {
@@ -26,20 +27,17 @@ interface Props {
 }
 
 export const SessionProvider = ({ children }: Props) => {
-  const [user, setUser] = useState<IUser | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<Partial<IUser> | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const token = authService.getToken();
-    if (token) {
-      // Aqui você pode fazer uma chamada para obter os dados do usuário
-      setUser({ id: "1", email: "user@example.com" });
-    }
-    setIsLoading(false);
+
+    if (token) setIsLoading(false);
   }, []);
 
   return (
-    <SessionContext.Provider value={{ user, isAuthenticated: !!user }}>
+    <SessionContext.Provider value={{ user, isAuthenticated: !!user, setUser }}>
       {isLoading ? <LoadingPage /> : children}
     </SessionContext.Provider>
   );
