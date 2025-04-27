@@ -7,6 +7,7 @@ import { SignUpComponent } from "../auth/signup/index.tsx";
 import Home from "../pages/home/home.tsx";
 import { routeCustomers } from "../pages/customer/routers.tsx";
 import LandingPage from "../pages/landing/index.tsx";
+import { routeOccurrences } from "../pages/occurrences/routers.tsx";
 
 const protectedRoutes: RouteObject[] = [
   {
@@ -14,6 +15,7 @@ const protectedRoutes: RouteObject[] = [
     element: <Home />,
   },
   ...routeCustomers,
+  ...routeOccurrences,
 ];
 
 const publicRoutes: RouteObject[] = [
