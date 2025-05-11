@@ -12,6 +12,7 @@ export function Form<T>({
   isLoading,
   onHandleSubmit,
   onSubmit,
+  submitButton,
 }: IForm<T>) {
   const navigate = useNavigate();
 
@@ -26,7 +27,7 @@ export function Form<T>({
 
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onHandleSubmit(onSubmit({ values: values }));
+    onHandleSubmit(onSubmit && onSubmit({ values: values }));
   };
 
   return (
@@ -55,14 +56,15 @@ export function Form<T>({
         >
           cancelar
         </Button>
-        
+
         <Button
           disabled={!hasChange || isLoading}
-          type="submit"
+          type={submitButton?.onClick ? "button" : "submit"}
           variant="contained"
+          onClick={submitButton?.onClick && submitButton?.onClick}
           sx={{ boxShadow: 1 }}
         >
-          enviar
+          {submitButton?.buttonLabel ? submitButton?.buttonLabel : "enviar"}
         </Button>
       </Stack>
     </Card>

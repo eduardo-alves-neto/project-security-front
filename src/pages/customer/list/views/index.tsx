@@ -38,6 +38,14 @@ export const ListView = ({
             label: "Editar",
             onClick: (row) => navigate(customerRoutes.update(row.id)),
           },
+          {
+            label: "Gerar contrato",
+            onClick: (row) => navigate(customerRoutes.contract(row.id)),
+          },
+          {
+            label: "Emails",
+            onClick: (row) => navigate(customerRoutes.email(row.id)),
+          },
         ]}
         pagination={{
           rowsLength,

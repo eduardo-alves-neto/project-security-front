@@ -10,6 +10,7 @@ import { customerServices } from "../services/customerServices";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate, useParams } from "react-router";
 import { useState } from "react";
+import dayjs from "dayjs";
 
 export const CustomerFormView = () => {
   const navigate = useNavigate();
@@ -118,6 +119,92 @@ export const CustomerFormView = () => {
               label={"Telefone"}
               value={watch("phone")}
               {...register("phone")}
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 4 }}>
+            <TextField
+              type="date"
+              fullWidth
+              size="small"
+              InputLabelProps={{ shrink: true }}
+              label="Data de Nascimento"
+              value={
+                watch("birthDate")
+                  ? dayjs.utc(watch("birthDate")).format("YYYY-MM-DD")
+                  : ""
+              }
+              {...register("birthDate")}
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12 }}>
+            <TextField
+              fullWidth
+              size="small"
+              label="Bairro"
+              value={watch("address.neighborhood") || ""}
+              {...register("address.neighborhood")}
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 4 }}>
+            <TextField
+              fullWidth
+              size="small"
+              label="Endereço"
+              value={`${watch("address.street") || ""}`}
+              {...register("address.street")}
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 4 }}>
+            <TextField
+              fullWidth
+              size="small"
+              label="Complemento"
+              value={watch("address.complement") || ""}
+              {...register("address.complement")}
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 4 }}>
+            <TextField
+              fullWidth
+              size="small"
+              label="Numero"
+              value={watch("address.number") || ""}
+              {...register("address.number")}
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 4 }}>
+            <TextField
+              fullWidth
+              size="small"
+              label="Cidade"
+              value={watch("address.city") || ""}
+              {...register("address.city")}
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 4 }}>
+            <TextField
+              fullWidth
+              size="small"
+              label="UF"
+              value={watch("address.state") || ""}
+              {...register("address.state")}
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 4 }}>
+            <TextField
+              fullWidth
+              size="small"
+              label="CEP"
+              value={watch("address.zipCode") || ""}
+              {...register("address.zipCode")}
             />
           </Grid>
         </Grid>

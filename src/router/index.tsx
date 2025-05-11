@@ -17,7 +17,7 @@ const protectedRoutes: RouteObject[] = [
   },
   ...routeCustomers,
   ...routeOccurrences,
-  ...routeCollaborators
+  ...routeCollaborators,
 ];
 
 const publicRoutes: RouteObject[] = [
