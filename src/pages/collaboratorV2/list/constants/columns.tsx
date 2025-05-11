@@ -1,5 +1,5 @@
-import type { ColumnDef } from "@tanstack/react-table"
-import type { ICollaborator } from "../../services/types"
+import { ColumnDef } from "@tanstack/react-table";
+import { ICollaborator } from "../../services/types";
 
 export const columns = (): ColumnDef<ICollaborator>[] => [
   {
@@ -18,4 +18,4 @@ export const columns = (): ColumnDef<ICollaborator>[] => [
     accessorKey: "cpf",
     header: "CPF",
   },
-]
+];

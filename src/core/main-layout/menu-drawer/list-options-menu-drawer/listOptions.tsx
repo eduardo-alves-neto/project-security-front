@@ -2,10 +2,12 @@ import {
   ListItem,
   ListItemButton,
   ListItemIcon,
-  ListItemText
+  ListItemText,
 } from "@mui/material";
 import { IoPersonSharp } from "react-icons/io5";
 import { MdEventNote } from "react-icons/md";
+import { BsFileEarmarkPersonFill } from "react-icons/bs";
+
 import { useNavigate } from "react-router";
 
 // interface IListOptions {
@@ -19,10 +21,15 @@ const listOptions = [
     Icon: IoPersonSharp,
   },
   {
+    label: "Colaboradores",
+    path: "collaborator",
+    Icon: BsFileEarmarkPersonFill,
+  },
+  {
     label: "Ocorrências",
     path: "occurrences",
-    Icon: MdEventNote ,
-  }
+    Icon: MdEventNote,
+  },
 ];
 
 export const ListOptions = () => {

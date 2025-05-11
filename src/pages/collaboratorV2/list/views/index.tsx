@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router"
-import { Title } from "../../../../components/v1/title"
-import { LayoutListTable } from "../../../../components/v1/ListTable"
-import type { ListViewModel } from "../types"
-import { collaboratorRoutes } from "../../constants/routes"
+import { useNavigate } from "react-router";
+import { Title } from "../../../../components/v1/title";
+import { LayoutListTable } from "../../../../components/v1/ListTable";
+import { ListViewModel } from "../types";
+import { collaboratorRoutes } from "../../constants/routes";
 
 export const ListView = ({
   page,
@@ -15,7 +15,7 @@ export const ListView = ({
   handleChangePage,
   handleChangeRowsPerPage,
 }: ListViewModel) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <>
@@ -23,7 +23,9 @@ export const ListView = ({
         title="Colaboradores"
         buttonTitle="Adicionar colaborador"
         breadcrumbs={[{ label: "Colaboradores" }]}
-        onNewRegisterNavigate={() => navigate(collaboratorRoutes.create(), { viewTransition: true })}
+        onNewRegisterNavigate={() =>
+          navigate(collaboratorRoutes.create(), { viewTransition: true })
+        }
       />
 
       <LayoutListTable
@@ -47,5 +49,5 @@ export const ListView = ({
         isLoading={isLoading}
       />
     </>
-  )
-}
+  );
+};

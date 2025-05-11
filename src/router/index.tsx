@@ -8,6 +8,7 @@ import Home from "../pages/home/home.tsx";
 import { routeCustomers } from "../pages/customer/routers.tsx";
 import LandingPage from "../pages/landing/index.tsx";
 import { routeOccurrences } from "../pages/occurrences/routers.tsx";
+import { routeCollaborators } from "../pages/collaboratorV2/routers.tsx";
 
 const protectedRoutes: RouteObject[] = [
   {
@@ -16,6 +17,7 @@ const protectedRoutes: RouteObject[] = [
   },
   ...routeCustomers,
   ...routeOccurrences,
+  ...routeCollaborators
 ];
 
 const publicRoutes: RouteObject[] = [

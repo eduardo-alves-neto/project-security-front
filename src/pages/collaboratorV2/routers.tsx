@@ -1,7 +1,7 @@
-import type { RouteObject } from "react-router"
-import { List } from "./list"
-import { collaboratorRoutes } from "./constants/routes"
-import { CollaboratorFormView } from "./forms"
+import { RouteObject } from "react-router";
+import { List } from "./list";
+import { collaboratorRoutes } from "./constants/routes";
+import { CollaboratorFormView } from "./forms";
 
 export const routeCollaborators: RouteObject[] = [
   {
@@ -12,4 +12,4 @@ export const routeCollaborators: RouteObject[] = [
       { path: collaboratorRoutes.update(":id"), element: <CollaboratorFormView /> },
     ],
   },
-]
+];

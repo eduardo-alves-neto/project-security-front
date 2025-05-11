@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { ListModelType } from "../types";
-import { ICustomer } from "../../services/types";
+import { ICollaborator } from "../../services/types";
 import { enqueueSnackbar } from "notistack";
 import { columns } from "../constants/columns";
 
@@ -8,10 +8,10 @@ export const useListViewModel = ({
   listDataQuery,
   mutationDelete,
 }: ListModelType) => {
-  const [rowsLength] = useState<number>(0);
+  const [rowsLength,] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [page, setPage] = useState(0);
-  const [rows, setRows] = useState<ICustomer[]>([]);
+  const [rows, setRows] = useState<ICollaborator[]>([]);
 
   const { mutateAsync, isPending } = listDataQuery;
 
@@ -26,7 +26,7 @@ export const useListViewModel = ({
       })
       .catch((error) => {
         enqueueSnackbar(
-          error.response?.data?.message || "Erro ao carregar clientes",
+          error.response?.data?.message || "Erro ao carregar colaboradores",
           { variant: "error" }
         );
       });
@@ -56,7 +56,7 @@ export const useListViewModel = ({
         fetch();
       } catch (error: any) {
         enqueueSnackbar(
-          error.response?.data?.message || "Erro ao deletar cliente",
+          error.response?.data?.message || "Erro ao deletar colaborador",
           { variant: "error" }
         );
       }
