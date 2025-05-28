@@ -33,13 +33,13 @@ export const SendEmailView = () => {
 
   const { handleSubmit, register, setValue } = form;
 
-  // Fetch customer email using useQuery
+
   const { isLoading: isFetchingEmail } = useQuery({
     queryKey: ["customer", id],
     enabled: !!id,
     queryFn: async () => {
       const data = await customerServices.getById(id!);
-      setValue("to", data.email); // Preenche o campo "to" com o e-mail do cliente
+      setValue("to", data.email); 
     },
   });
 
@@ -85,7 +85,7 @@ export const SendEmailView = () => {
         </Box>
       )}
       <Typography variant="h4" mb={3}>
-        Enviar E-mail para Cliente
+        Enviar e-mail para cliente
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={3}>
